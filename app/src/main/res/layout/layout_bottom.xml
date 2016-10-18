@@ -95,17 +95,17 @@
             </RelativeLayout>
         </RelativeLayout>
 
-        <!--<ImageView-->
-            <!--android:id="@+id/qr_img"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="64dip"-->
-            <!--android:layout_gravity="bottom"-->
-            <!--android:layout_weight="1.0"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_centerHorizontal="true"-->
-            <!--android:scaleType="centerInside"-->
-            <!--android:src="@drawable/qr"-->
-            <!--/>-->
+        <ImageView
+            android:id="@+id/qr_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_weight="1.0"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/qr"
+            />
 
         <RelativeLayout
             android:id="@+id/re_check"
