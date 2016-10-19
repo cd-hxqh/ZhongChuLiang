@@ -3,16 +3,32 @@ package com.zcl.hxqh.zhongchuliang.view.activity;
 import android.animation.LayoutTransition;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.zcl.hxqh.zhongchuliang.R;
+import com.zcl.hxqh.zhongchuliang.adapter.MatrectransAdapter;
+import com.zcl.hxqh.zhongchuliang.adapter.MatrectransAdapter2;
+import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
+import com.zcl.hxqh.zhongchuliang.api.ImManager;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
+import com.zcl.hxqh.zhongchuliang.bean.Results;
+import com.zcl.hxqh.zhongchuliang.model.Matrectrans;
 import com.zcl.hxqh.zhongchuliang.model.Po;
+import com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 
 /**
@@ -64,6 +80,14 @@ public class PodetailsActivity extends BaseActivity {
 
     private LinearLayout loadLayout;//加载布局
 
+    private ScrollView scrollView;
+
+    private ListViewForScrollView listView;
+    ListViewForScrollView.LayoutManager mLayoutManager;
+
+    MatrectransAdapter2 matrectransAdapter;
+    ArrayList<Matrectrans> items;
+
     private final int RECORDE_MARK = 1000;//接收标记
     private final int RETURN_MARK = 1001;//退货标记
 
@@ -75,6 +99,7 @@ public class PodetailsActivity extends BaseActivity {
         setContentView(R.layout.activity_podetails);
         getIntentData();
         initView();
+        getMatrectransList();
         setEvent();
     }
 
@@ -109,6 +134,9 @@ public class PodetailsActivity extends BaseActivity {
 
         recordeBtn = (Button) findViewById(R.id.po_recorde_text);
         returnBtn = (Button) findViewById(R.id.po_return_text);
+
+        scrollView = (ScrollView) findViewById(R.id.scrollView);
+        listView = (ListViewForScrollView) findViewById(R.id.listview);
     }
 
     /**
@@ -118,6 +146,11 @@ public class PodetailsActivity extends BaseActivity {
         titleText.setText(getString(R.string.material_receiving));
         backImageView.setVisibility(View.VISIBLE);
         backImageView.setOnClickListener(backImageViewOnClickListener);
+        scrollView.smoothScrollTo(0, 0);
+        mLayoutManager = new LinearLayoutManager(this);
+        listView.setLayoutManager(mLayoutManager);
+        matrectransAdapter = new MatrectransAdapter2(this);
+        listView.setAdapter(matrectransAdapter);
         if (po != null) {
             poNumText.setText(po.ponum);
             poDescText.setText(po.description);
@@ -173,5 +206,44 @@ public class PodetailsActivity extends BaseActivity {
             startActivity(intent);
         }
     };
+
+    /**
+     * 获取入库管理*
+     */
+
+    private void getMatrectransList() {
+        ImManager.getData(PodetailsActivity.this, ImManager.setMatrectransUrl(po.ponum), new HttpRequestHandler<Results>() {
+            @Override
+            public void onSuccess(Results results) {
+                Log.i(TAG, "data=" + results);
+            }
+
+            @Override
+            public void onSuccess(Results results, int totalPages, int currentPage) {
+                items = new ArrayList<Matrectrans>();
+                try {
+                    items = Ig_Json_Model.parseMatrectransFromString(results.getResultlist());
+                    if (items == null || items.isEmpty()) {
+                    } else {
+                        matrectransAdapter.adddate(items);
+//                        if (page == 1) {
+//                            poAdapter = new PoAdapter(getActivity());
+//                            mRecyclerView.setAdapter(poAdapter);
+//                        }
+//                        if (page == totalPages) {
+//                            poAdapter.adddate(items);
+//                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+            }
+        });
+    }
+
 
 }

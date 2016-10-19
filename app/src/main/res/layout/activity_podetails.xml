@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
@@ -13,6 +13,7 @@
         android:layout_height="50dp" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_contains">
@@ -156,9 +157,9 @@
                 android:id="@+id/load_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:animateLayoutChanges="true">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -416,6 +417,7 @@
                     android:layout_below="@+id/num_linearlayout_id"
                     android:background="@drawable/line"></View>
             </LinearLayout>
+
             <RelativeLayout
                 android:id="@+id/load_more_layout"
                 android:layout_width="match_parent"
@@ -426,8 +428,9 @@
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_centerHorizontal="true"
-                    android:background="@drawable/down"/>
+                    android:background="@drawable/down" />
             </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -456,9 +459,15 @@
 
 
             </LinearLayout>
+        <com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView>
         </LinearLayout>
 
     </ScrollView>
-</RelativeLayout>
+
+</LinearLayout>
 

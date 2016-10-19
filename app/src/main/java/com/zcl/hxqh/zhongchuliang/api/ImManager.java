@@ -72,10 +72,17 @@ public class ImManager {
     }
 
     /**
+     * 设置物料接收*
+     */
+    public static String setMatrectransUrl(String ponum) {
+        return "{'appid':'" + Constants.RECEIPT_APPID + "','objectname':'" + Constants.MATRECTRANS_NAME + "','option':'read','condition':{'PONUM':'"+ponum+"'}}";
+    }
+
+    /**
      * 设置入库物料管理*
      */
     public static String setPolineUrl(String ponum, int curpage, int showcount) {
-        return "{'appid':'" + Constants.RECEIPT_APPID + "','objectname':'" + Constants.POLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'PONUM':'" + ponum + "'}";
+        return "{'appid':'" + Constants.RECEIPT_APPID + "','objectname':'" + Constants.POLINE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'PONUM':'" + ponum + "'}}";
     }
 //
 //    /**
@@ -184,10 +191,11 @@ public class ImManager {
      */
     public static void getData(final Context cxt, String data, final HttpRequestHandler<Results> handler) {
         Log.i(TAG, "data=" + data);
+        String ip_adress = AccountUtils.getIpAddress(cxt) + Constants.BASE_URL;
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         params.put("data", data);
-        client.get(Constants.BASE_URL, params, new TextHttpResponseHandler() {
+        client.get(ip_adress, params, new TextHttpResponseHandler() {
             @Override
             public void onFailure(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString, Throwable throwable) {
                 SafeHandler.onFailure(handler, cxt.getString(R.string.get_data_info_fail));

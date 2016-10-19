@@ -35,6 +35,9 @@ public class Matrectrans extends Entity {
     @JsonField(fieldName = "tolot")
     public String tolot;//目标批次
 
+    @JsonField(fieldName = "ponum")
+    public String ponum;//单号
+
 
     public String getFromlot() {
         return fromlot;

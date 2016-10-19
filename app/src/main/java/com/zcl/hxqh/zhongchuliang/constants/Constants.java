@@ -76,6 +76,8 @@ public class Constants {
     public static final String PO_NAME = "PO";
     //入库物料的表名
     public static final String POLINE_NAME = "POLINE";
+    //物料接收的表名
+    public static final String MATRECTRANS_NAME = "MATRECTRANS";
     /**
      * 库存盘点*
      */
