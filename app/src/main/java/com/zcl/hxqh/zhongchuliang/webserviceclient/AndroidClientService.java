@@ -105,7 +105,7 @@ public class AndroidClientService {
     /**
      * 入库管理接收/退货
      */
-    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty, String binnum, String lotnum) {
+    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty) {
         Log.i(TAG,"qty="+qty);
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -116,10 +116,7 @@ public class AndroidClientService {
         soapReq.addProperty("ponum", ponum);//采购单编号
         soapReq.addProperty("polinenum", polinenum);//行号
         soapReq.addProperty("qty", qty);//数量
-        soapReq.addProperty("binnum", binnum);//货位号
         if(issuetype.equals(Constants.RETURN)) {
-            Log.i(TAG,"2222="+lotnum);
-            soapReq.addProperty("lotnum", lotnum);//批次
         }
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(url, timeOut);

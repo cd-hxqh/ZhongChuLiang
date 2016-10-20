@@ -96,6 +96,43 @@
                 android:background="@drawable/line"></View>
 
             <LinearLayout
+                android:id="@+id/modelnum_linearlayout_id"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_40dp"
+                android:layout_below="@+id/view_1_id"
+                android:layout_marginLeft="@dimen/dimen_5"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/poline_modelnum"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+
+                <TextView
+                    android:id="@+id/poline_modelnum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_toRightOf="@+id/item_num_title"
+                    android:hint="@string/have_not_data"
+                    android:singleLine="true"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/dimens_16sp" />
+            </LinearLayout>
+
+
+            <View
+                android:id="@+id/view_9_id"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/desc_linearlayout_id"
+                android:background="@drawable/line"></View>
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40dp"
                 android:layout_below="@+id/view_1_id"
@@ -273,6 +310,7 @@
                 android:background="@drawable/line"></View>
 
             <LinearLayout
+                android:id="@+id/remark_linearlayout_id"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dimen_40dp"
                 android:layout_below="@+id/issueunit_linearlayout_id"
@@ -283,54 +321,23 @@
                 <TextView
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/poline_binnum"
+                    android:text="@string/poline_remark"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
-                <EditText
-                    android:id="@+id/poline_binnum"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/poline_remark"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edittext_login"
+                    android:layout_marginLeft="@dimen/dimen_5"
+                    android:layout_toRightOf="@+id/item_num_title"
                     android:hint="@string/have_not_data"
-                    android:drawablePadding="8dp"
-                    android:inputType="textPhonetic"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
             </LinearLayout>
 
             <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/enterby_linearlayout_id"
-                android:background="@drawable/line"></View>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dimen_40dp"
-                android:layout_below="@+id/issueunit_linearlayout_id"
-                android:layout_marginLeft="@dimen/dimen_5"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="120dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lotnum_text"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/dimens_16sp" />
-
-                <TextView
-                    android:id="@+id/lotnum_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/have_not_data"
-                    android:inputType="textPhonetic"
-                    android:textColor="#222222"
-                    android:textSize="@dimen/dimens_16sp" />
-            </LinearLayout>
-
-            <View
+                android:id="@+id/view_8_id"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
                 android:layout_below="@+id/enterby_linearlayout_id"

@@ -38,14 +38,14 @@ public class PolineDetailActivity extends BaseActivity {
 
     private TextView itemnumText; //项目
     private TextView polinenumText;//行号
+    private TextView polinemodelnumText;//型号
     private TextView descriptionText; //描述
     private TextView qty_title;//接收/退货
     private EditText qtyText; //接收/退货数量
     private TextView orderqtyText; //总数量
     private TextView orderunitText; //单位
     private TextView storelocText; //仓库
-    private EditText binnumText;//货位号
-    private TextView tolotText;//批次
+    private TextView remarkText;//备注
 
     private Button input;//提交
 
@@ -80,14 +80,14 @@ public class PolineDetailActivity extends BaseActivity {
 
         itemnumText = (TextView) findViewById(R.id.poline_itemnum);
         polinenumText = (TextView) findViewById(R.id.poline_polinenum);
+        polinemodelnumText = (TextView) findViewById(R.id.poline_modelnum);
         descriptionText = (TextView) findViewById(R.id.poline_desc);
         qty_title = (TextView) findViewById(R.id.item_recorde_title);
         qtyText = (EditText) findViewById(R.id.poline_recorde_num);
         orderqtyText = (TextView) findViewById(R.id.poline_orderqty);
         orderunitText = (TextView) findViewById(R.id.poline_orderunit);
         storelocText = (TextView) findViewById(R.id.poline_storeloc);
-        binnumText = (EditText) findViewById(R.id.poline_binnum);
-        tolotText = (TextView) findViewById(R.id.lotnum_text);
+        remarkText = (TextView) findViewById(R.id.poline_remark);
 
         input = (Button) findViewById(R.id.input_button_id);
     }
@@ -109,13 +109,13 @@ public class PolineDetailActivity extends BaseActivity {
         }
         itemnumText.setText(poline.itemnum);
         polinenumText.setText(poline.polinenum);
+        polinemodelnumText.setText(poline.modelnum);
         descriptionText.setText(poline.description);
         qtyText.setText(poline.orderqty);
         orderqtyText.setText(poline.orderqty);
         orderunitText.setText(poline.orderunit);
         storelocText.setText(poline.storeloc);
-        binnumText.setText(poline.tobin);
-        tolotText.setText(poline.tolot);
+        remarkText.setText(poline.remark);
 
         input.setOnClickListener(inputOnClickListener);
     }
@@ -139,7 +139,7 @@ public class PolineDetailActivity extends BaseActivity {
 
 
                         String data = getBaseApplication().getWsService().INV02RecByPOLine(type, getBaseApplication().getUsername(),
-                                ponum, poline.polinenum, mark == 1000 ? number : -number, binnumText.getText().toString(), poline.tolot);
+                                ponum, poline.polinenum, mark == 1000 ? number : -number);
                         Log.i(TAG, "data=" + data);
                         if (data == null) {
                             return "";
@@ -173,8 +173,7 @@ public class PolineDetailActivity extends BaseActivity {
     };
 
     private boolean isOK() {
-        if (qtyText == null || qtyText.getText().equals("")
-                || binnumText == null || binnumText.getText().equals("")) {
+        if (qtyText == null || qtyText.getText().equals("")) {
             Toast.makeText(PolineDetailActivity.this, "请完善信息", Toast.LENGTH_SHORT).show();
             return false;
         } else if (Integer.parseInt(qtyText.getText().toString()) > Integer.parseInt(poline.orderqty)) {

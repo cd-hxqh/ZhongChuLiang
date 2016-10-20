@@ -18,6 +18,8 @@ public class Matrectrans extends Entity {
     public String type;//型号
     @JsonField(fieldName = "receiptquantity")
     public String receiptquantity;//数量
+    @JsonField(fieldName = "quantity")
+    public String quantity;//数量
     @JsonField(fieldName = "curbaltotal")
     public String curbaltotal;//仓库当前余量
     @JsonField(fieldName = "linecost")
@@ -133,5 +135,21 @@ public class Matrectrans extends Entity {
 
     public void setTobin(String tobin) {
         this.tobin = tobin;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getPonum() {
+        return ponum;
+    }
+
+    public void setPonum(String ponum) {
+        this.ponum = ponum;
     }
 }

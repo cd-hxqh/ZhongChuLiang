@@ -82,6 +82,8 @@ public final class Matrectrans_JsonHelper
             return true;
         }else if ("RECEIPTQUANTITY".equals(fieldName)) {
             instance.receiptquantity = jp.getValueAsString();
+        }else if ("QUANTITY".equals(fieldName)) {
+            instance.quantity = jp.getValueAsString();
         } else if ("CURBALTOTAL".equals(fieldName)) {
             instance.curbaltotal = jp.getValueAsString();
             return true;

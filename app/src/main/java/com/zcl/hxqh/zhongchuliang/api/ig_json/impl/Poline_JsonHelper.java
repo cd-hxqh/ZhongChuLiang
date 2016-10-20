@@ -77,20 +77,20 @@ public final class Poline_JsonHelper
         } else if ("DESCRIPTION".equals(fieldName)) {
             instance.description = jp.getValueAsString();
             return true;
+        } else if ("MODELNUM".equals(fieldName)) {
+            instance.modelnum = jp.getValueAsString();
         } else if ("ORDERQTY".equals(fieldName)) {
             instance.orderqty = jp.getValueAsString();
-        } else if ("ORDERUNIT".equals(fieldName)) {
+            return true;
+        }else if ("ORDERUNIT".equals(fieldName)) {
             instance.orderunit = jp.getValueAsString();
             return true;
-        }else if ("STORELOC".equals(fieldName)) {
-            instance.storeloc = jp.getValueAsString();
-            return true;
-        }else if ("TOBIN".equals(fieldName)) {
-            instance.tobin = jp.getValueAsString();
+        }else if ("REMARK".equals(fieldName)) {
+            instance.remark = jp.getValueAsString();
             return true;
         }
-        else if ("TOLOT".equals(fieldName)) {
-            instance.tolot = jp.getValueAsString();
+        else if ("STORELOC".equals(fieldName)) {
+            instance.storeloc = jp.getValueAsString();
             return true;
         }
 

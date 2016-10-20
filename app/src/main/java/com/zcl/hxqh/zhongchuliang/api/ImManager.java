@@ -205,8 +205,13 @@ public class ImManager {
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
 
                 Results result = JsonUtils.parsingResults1(cxt, responseString);
-
-                SafeHandler.onSuccess(handler, result, result.getCurpage(), result.getShowcount());
+                if (result==null){
+                    Log.i(TAG, "responseString=" + responseString);
+                    SafeHandler.onFailure(handler, cxt.getString(R.string.get_data_info_fail));
+                }else {
+                    Log.i(TAG, "responseString=" + responseString);
+                    SafeHandler.onSuccess(handler, result, result.getCurpage(), result.getShowcount());
+                }
             }
 
         });
@@ -233,8 +238,13 @@ public class ImManager {
             @Override
             public void onSuccess(int statusCode, cz.msebera.android.httpclient.Header[] headers, String responseString) {
                 Results result = JsonUtils.parsingResults(cxt, responseString);
-
-                SafeHandler.onSuccess(handler, result, result.getCurpage(), result.getShowcount());
+                if (result==null){
+                    Log.i(TAG, "responseString=" + responseString);
+                    SafeHandler.onFailure(handler, cxt.getString(R.string.get_data_info_fail));
+                }else {
+                    Log.i(TAG, "responseString=" + responseString);
+                    SafeHandler.onSuccess(handler, result, result.getCurpage(), result.getShowcount());
+                }
             }
 
         });

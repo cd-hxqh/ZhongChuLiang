@@ -48,7 +48,7 @@ public class MatrectransAdapter2 extends RecyclerView.Adapter<MatrectransAdapter
         viewHolder.itemNumber_title.setText(R.string.item_number_text);
         viewHolder.itemNum.setText(item.itemnum == null ? "" : item.itemnum);
         viewHolder.itemDesc.setText(item.description);
-        viewHolder.itemNumber.setText(item.receiptquantity);
+        viewHolder.itemNumber.setText(item.quantity);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

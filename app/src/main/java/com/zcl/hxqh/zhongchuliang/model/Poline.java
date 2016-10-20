@@ -16,16 +16,16 @@ public class Poline extends Entity {
     public String polinenum;//行号
     @JsonField(fieldName = "description")
     public String description; //描述
+    @JsonField(fieldName = "modelnum")
+    public String modelnum; //型号
     @JsonField(fieldName = "orderqty")
-    public String orderqty; //规格型号
+    public String orderqty; //订购量
     @JsonField(fieldName = "orderunit")
-    public String orderunit; //订购单位
+    public String orderunit; //发放单位
+    @JsonField(fieldName = "remark")
+    public String remark; //备注
     @JsonField(fieldName = "storeloc")
-    public String storeloc; //发放单位
-    @JsonField(fieldName = "tobin")
-    public String tobin; //库位号
-    @JsonField(fieldName = "tolot")
-    public String tolot; //批次
+    public String storeloc; //目标库房
 
     public String getPolinenum() {
         return polinenum;
@@ -33,22 +33,6 @@ public class Poline extends Entity {
 
     public void setPolinenum(String polinenum) {
         this.polinenum = polinenum;
-    }
-
-    public String getTobin() {
-        return tobin;
-    }
-
-    public void setTobin(String tobin) {
-        this.tobin = tobin;
-    }
-
-    public String getTolot() {
-        return tolot;
-    }
-
-    public void setTolot(String tolot) {
-        this.tolot = tolot;
     }
 
     public String getItemnum() {
@@ -89,5 +73,21 @@ public class Poline extends Entity {
 
     public void setStoreloc(String storeloc) {
         this.storeloc = storeloc;
+    }
+
+    public String getModelnum() {
+        return modelnum;
+    }
+
+    public void setModelnum(String modelnum) {
+        this.modelnum = modelnum;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
