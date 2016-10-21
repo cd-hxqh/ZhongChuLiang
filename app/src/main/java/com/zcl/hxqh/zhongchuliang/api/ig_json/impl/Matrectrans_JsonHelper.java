@@ -71,7 +71,10 @@ public final class Matrectrans_JsonHelper
         if ("PONUM".equals(fieldName)) {
             instance.ponum = jp.getValueAsString();
             return true;
-        } else if ("DESCRIPTION".equals(fieldName)) {
+        } else if ("POLINENUM".equals(fieldName)) {
+            instance.polinenum = jp.getValueAsString();
+            return true;
+        }else if ("DESCRIPTION".equals(fieldName)) {
             instance.description = jp.getValueAsString();
             return true;
         } else if ("ITEMNUM".equals(fieldName)) {
@@ -84,7 +87,17 @@ public final class Matrectrans_JsonHelper
             instance.receiptquantity = jp.getValueAsString();
         }else if ("QUANTITY".equals(fieldName)) {
             instance.quantity = jp.getValueAsString();
-        } else if ("CURBALTOTAL".equals(fieldName)) {
+        } else if ("RECEIVEDUNIT".equals(fieldName)) {
+            instance.receivedunit = jp.getValueAsString();
+        }else if ("ISSUETYPE".equals(fieldName)) {
+            instance.issuetype = jp.getValueAsString();
+        }else if ("STATUS".equals(fieldName)) {
+            instance.status = jp.getValueAsString();
+        }else if ("ACTUALDATE".equals(fieldName)) {
+            instance.actualdate = jp.getValueAsString();
+        }else if ("STATUSDATE".equals(fieldName)) {
+            instance.statusdate = jp.getValueAsString();
+        }else if ("CURBALTOTAL".equals(fieldName)) {
             instance.curbaltotal = jp.getValueAsString();
             return true;
         }else if ("CURBALTOTAL".equals(fieldName)) {

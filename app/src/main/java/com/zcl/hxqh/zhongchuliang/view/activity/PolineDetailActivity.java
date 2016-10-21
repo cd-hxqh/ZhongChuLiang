@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.model.Poline;
+import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
 
 import org.json.JSONException;
@@ -139,7 +140,7 @@ public class PolineDetailActivity extends BaseActivity {
 
 
                         String data = getBaseApplication().getWsService().INV02RecByPOLine(type, getBaseApplication().getUsername(),
-                                ponum, poline.polinenum, mark == 1000 ? number : -number);
+                                ponum, poline.polinenum, mark == 1000 ? number : -number, AccountUtils.getIpAddress(PolineDetailActivity.this));
                         Log.i(TAG, "data=" + data);
                         if (data == null) {
                             return "";

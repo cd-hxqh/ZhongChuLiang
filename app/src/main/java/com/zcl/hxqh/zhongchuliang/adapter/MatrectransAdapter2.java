@@ -15,6 +15,7 @@ import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.model.Matrectrans;
 import com.zcl.hxqh.zhongchuliang.view.activity.InvbalancesActivity;
 import com.zcl.hxqh.zhongchuliang.view.activity.MatrectransActivity;
+import com.zcl.hxqh.zhongchuliang.view.activity.PoMatrectransActivity;
 import com.zcl.hxqh.zhongchuliang.view.activity.PodetailsActivity;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class MatrectransAdapter2 extends RecyclerView.Adapter<MatrectransAdapter
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, MatrectransActivity.class);
+                Intent intent = new Intent(activity, PoMatrectransActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("matrectrans", item);
 //                bundle.putString("location", location);

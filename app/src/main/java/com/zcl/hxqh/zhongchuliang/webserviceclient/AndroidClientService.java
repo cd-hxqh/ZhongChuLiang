@@ -4,6 +4,7 @@ package com.zcl.hxqh.zhongchuliang.webserviceclient;
 import android.util.Log;
 
 import com.zcl.hxqh.zhongchuliang.constants.Constants;
+import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
@@ -105,21 +106,21 @@ public class AndroidClientService {
     /**
      * 入库管理接收/退货
      */
-    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty) {
+    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty,String adress) {
         Log.i(TAG,"qty="+qty);
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
         SoapObject soapReq = new SoapObject(NAMESPACE, "mobileserviceINV02RecByPOLine");
-        soapReq.addProperty("issuetype", issuetype);//用户名
+        soapReq.addProperty("issuetype", issuetype);//操作类型
         soapReq.addProperty("userid", userid);//用户名
         soapReq.addProperty("ponum", ponum);//采购单编号
         soapReq.addProperty("polinenum", polinenum);//行号
         soapReq.addProperty("qty", qty);//数量
-        if(issuetype.equals(Constants.RETURN)) {
-        }
+//        if(issuetype.equals(Constants.RETURN)) {
+//        }
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {

@@ -155,6 +155,13 @@
     <string name="matrectrans_tostoreloc">目标仓库:</string>
     <string name="matrectrans_tobin">目标库位号:</string>
     <string name="matrectrans_details">转移详情</string>
+    <string name="matrectrans_po_details">物料接收详情</string>
+    <string name="matrectrans_polinenum">PO行:</string>
+    <string name="matrectrans_receivedunit">单位:</string>
+    <string name="matrectrans_issuetype">类型:</string>
+    <string name="matrectrans_status">状态:</string>
+    <string name="matrectrans_actualdate">到货时间:</string>
+    <string name="matrectrans_statusdate">入库时间:</string>
 
 
     <!--仓库库位号选择页面-->

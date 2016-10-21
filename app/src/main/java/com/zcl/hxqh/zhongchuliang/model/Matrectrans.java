@@ -10,6 +10,8 @@ import com.instagram.common.json.annotation.JsonType;
 @JsonType
 public class Matrectrans extends Entity {
 
+    @JsonField(fieldName = "polinenum")
+    public String polinenum;//PO行
     @JsonField(fieldName = "itemnum")
     public String itemnum;//项目
     @JsonField(fieldName = "description")
@@ -20,6 +22,16 @@ public class Matrectrans extends Entity {
     public String receiptquantity;//数量
     @JsonField(fieldName = "quantity")
     public String quantity;//数量
+    @JsonField(fieldName = "receivedunit")
+    public String receivedunit;//单位
+    @JsonField(fieldName = "issuetype")
+    public String issuetype;//类型
+    @JsonField(fieldName = "status")
+    public String status;//状态
+    @JsonField(fieldName = "actualdate")
+    public String actualdate;//到货时间
+    @JsonField(fieldName = "statusdate")
+    public String statusdate;//入库时间
     @JsonField(fieldName = "curbaltotal")
     public String curbaltotal;//仓库当前余量
     @JsonField(fieldName = "linecost")
@@ -151,5 +163,53 @@ public class Matrectrans extends Entity {
 
     public void setPonum(String ponum) {
         this.ponum = ponum;
+    }
+
+    public String getPolinenum() {
+        return polinenum;
+    }
+
+    public void setPolinenum(String polinenum) {
+        this.polinenum = polinenum;
+    }
+
+    public String getReceivedunit() {
+        return receivedunit;
+    }
+
+    public void setReceivedunit(String receivedunit) {
+        this.receivedunit = receivedunit;
+    }
+
+    public String getIssuetype() {
+        return issuetype;
+    }
+
+    public void setIssuetype(String issuetype) {
+        this.issuetype = issuetype;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getActualdate() {
+        return actualdate;
+    }
+
+    public void setActualdate(String actualdate) {
+        this.actualdate = actualdate;
+    }
+
+    public String getStatusdate() {
+        return statusdate;
+    }
+
+    public void setStatusdate(String statusdate) {
+        this.statusdate = statusdate;
     }
 }

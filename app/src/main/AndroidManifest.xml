@@ -59,6 +59,9 @@
             android:name=".view.activity.PolineDetailActivity"
             android:label="PolineDetailActivity"></activity>
         <activity
+            android:name=".view.activity.PoMatrectransActivity"
+            android:label="PoMatrectransActivity"></activity>
+        <activity
             android:name=".view.activity.WorkOrderDetailsActivity"
             android:label="WorkOrderDetailsActivity"></activity>
         <activity
