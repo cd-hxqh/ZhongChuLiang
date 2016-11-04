@@ -4,55 +4,58 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zcl.hxqh.zhongchuliang.R;
-import com.zcl.hxqh.zhongchuliang.model.Invreserve;
-import com.zcl.hxqh.zhongchuliang.view.activity.InvreserveDetailActivity;
+import com.zcl.hxqh.zhongchuliang.model.N_Invver;
+import com.zcl.hxqh.zhongchuliang.view.activity.CInvbalancesActivity;
+import com.zcl.hxqh.zhongchuliang.view.activity.N_InvverDetailActivity;
 
 import java.util.ArrayList;
 
 /**
  * Created by apple on 15/6/4.
- * 出库管理
+ * 库存盘点
  */
-public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.ViewHolder> {
+public class N_InvverAdapter extends RecyclerView.Adapter<N_InvverAdapter.ViewHolder> {
 
-    private static final String TAG = "InvreserveAdapter";
+    private static final String TAG = "InvAdapter";
     Context mContext;
-    ArrayList<Invreserve> invreserves = new ArrayList<Invreserve>();
-    private String wonum;
-    public InvreserveAdapter(Context context, String wonum) {
+    ArrayList<N_Invver> mInventorys = new ArrayList<N_Invver>();
+
+    private int mark; //库存情况/库存盘点
+
+    public N_InvverAdapter(Context context, int mark) {
         mContext = context;
-        this.wonum=wonum;
+        this.mark = mark;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_check, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        final Invreserve invreserve = invreserves.get(i);
+        final N_Invver n_invver = mInventorys.get(i);
 
-        viewHolder.itemNum.setText(invreserve.itemnum);
-        viewHolder.itemDesc.setText(invreserve.description);
+        viewHolder.itemNum.setText(n_invver.invvernum);
+        viewHolder.itemDesc.setText(n_invver.description);
 
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, InvreserveDetailActivity.class);
+                Intent intent = new Intent();
+                intent.setClass(mContext, N_InvverDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("invreserve", invreserve);
-                bundle.putString("wonum", wonum);
+                bundle.putSerializable("n_invver", n_invver);
                 intent.putExtras(bundle);
                 mContext.startActivity(intent);
             }
@@ -63,16 +66,17 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return invreserves.size();
+        return mInventorys.size();
     }
 
-    public void update(ArrayList<Invreserve> data, boolean merge) {
-        if (merge && invreserves.size() > 0) {
-            for (int i = 0; i < invreserves.size(); i++) {
-                Invreserve obj = invreserves.get(i);
+    public void update(ArrayList<N_Invver> data, boolean merge) {
+        if (merge && mInventorys.size() > 0) {
+            for (int i = 0; i < mInventorys.size(); i++) {
+                Log.i(TAG, "mItems=" + mInventorys.get(i).invvernum);
+                N_Invver obj = mInventorys.get(i);
                 boolean exist = false;
                 for (int j = 0; j < data.size(); j++) {
-                    if (data.get(j).itemnum == obj.itemnum) {
+                    if (data.get(j).invvernum == obj.invvernum) {
                         exist = true;
                         break;
                     }
@@ -81,30 +85,20 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
                 data.add(obj);
             }
         }
-        invreserves = data;
+        mInventorys = data;
 
         notifyDataSetChanged();
     }
 
-    public void adddate(ArrayList<Invreserve> data){
-        if(data.size()>0){
-            for(int i = 0;i < data.size();i++){
-                if(!invreserves.contains(data.get(i))){
-                    invreserves.add(data.get(i));
+    public void adddate(ArrayList<N_Invver> data) {
+        if (data.size() > 0) {
+            for (int i = 0; i < data.size(); i++) {
+                if (!mInventorys.contains(data.get(i))) {
+                    mInventorys.add(data.get(i));
                 }
             }
         }
         notifyDataSetChanged();
-    }
-
-    public ArrayList<Invreserve> getChecked(){
-        ArrayList<Invreserve> polines = new ArrayList<>();
-        for (Invreserve invreserve : invreserves){
-            if (invreserve.ischeck){
-                polines.add(invreserve);
-            }
-        }
-        return polines;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -122,17 +116,11 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
          */
         public TextView itemDesc;
 
-        /**
-         * 勾选框
-         */
-        public CheckBox checkBox;
-
         public ViewHolder(View view) {
             super(view);
             cardView = (RelativeLayout) view.findViewById(R.id.card_container);
             itemNum = (TextView) view.findViewById(R.id.item_num_text);
             itemDesc = (TextView) view.findViewById(R.id.item_desc_text);
-            checkBox = (CheckBox) view.findViewById(R.id.checkBox);
         }
     }
 }

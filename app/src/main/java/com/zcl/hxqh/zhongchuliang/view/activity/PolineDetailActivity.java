@@ -153,7 +153,7 @@ public class PolineDetailActivity extends BaseActivity {
                         super.onPostExecute(o);
                         colseProgressBar();
 
-                        if (o.equals("")) {
+                        if (o==null||o.equals("")) {
                             MessageUtils.showMiddleToast(PolineDetailActivity.this, "操作失败");
                         }
                         try {

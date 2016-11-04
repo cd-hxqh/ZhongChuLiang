@@ -65,19 +65,25 @@ public final class Invreserve_JsonHelper
 
     public static boolean processSingleField(Invreserve instance, String fieldName, JsonParser jp)
             throws IOException {
-        if ("LOCATION".equals(fieldName)) {
-            instance.location = jp.getValueAsString();
+        if ("WONUM".equals(fieldName)) {
+            instance.wonum = jp.getValueAsString();
             return true;
-        } else if ("DESCRIPTION".equals(fieldName)) {
-            instance.description = jp.getValueAsString();
+        } else if ("REQUESTNUM".equals(fieldName)) {
+            instance.requestnum = jp.getValueAsString();
             return true;
         } else if ("ITEMNUM".equals(fieldName)) {
             instance.itemnum = jp.getValueAsString();
-        } else if ("RESERVEDQTY".equals(fieldName)) {
+        } else if ("LOCATION".equals(fieldName)) {
+            instance.location = jp.getValueAsString();
+            return true;
+        }else if ("DESCRIPTION".equals(fieldName)) {
+            instance.description = jp.getValueAsString();
+            return true;
+        }else if ("RESERVEDQTY".equals(fieldName)) {
             instance.reservedqty = jp.getValueAsString();
             return true;
-        }else if ("BINNUM".equals(fieldName)) {
-            instance.binnum = jp.getValueAsString();
+        }else if ("RESTYPE".equals(fieldName)) {
+            instance.restype = jp.getValueAsString();
             return true;
         }
 

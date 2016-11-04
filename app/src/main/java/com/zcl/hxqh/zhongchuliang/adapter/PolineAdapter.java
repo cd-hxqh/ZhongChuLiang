@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -31,7 +33,7 @@ public class PolineAdapter extends RecyclerView.Adapter<PolineAdapter.ViewHolder
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item_check, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -49,13 +51,18 @@ public class PolineAdapter extends RecyclerView.Adapter<PolineAdapter.ViewHolder
                 Intent intent = new Intent(activity, PolineDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("poline", poline);
-                bundle.putString("ponum",activity.ponum);
-                bundle.putInt("mark",activity.mark);
+                bundle.putString("ponum", activity.ponum);
+                bundle.putInt("mark", activity.mark);
                 intent.putExtras(bundle);
                 activity.startActivity(intent);
             }
         });
-
+        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                poline.ischeck = isChecked;
+            }
+        });
 
     }
 
@@ -104,6 +111,16 @@ public class PolineAdapter extends RecyclerView.Adapter<PolineAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public ArrayList<Poline> getChecked(){
+        ArrayList<Poline> polines = new ArrayList<>();
+        for (Poline poline : mPos){
+            if (poline.ischeck){
+                polines.add(poline);
+            }
+        }
+        return polines;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
         /**
          * CardView*
@@ -119,11 +136,17 @@ public class PolineAdapter extends RecyclerView.Adapter<PolineAdapter.ViewHolder
          */
         public TextView itemDesc;
 
+        /**
+         * 勾选框
+         */
+        public CheckBox checkBox;
+
         public ViewHolder(View view) {
             super(view);
             cardView = (RelativeLayout) view.findViewById(R.id.card_container);
             itemNum = (TextView) view.findViewById(R.id.item_num_text);
             itemDesc = (TextView) view.findViewById(R.id.item_desc_text);
+            checkBox = (CheckBox) view.findViewById(R.id.checkBox);
         }
     }
 }

@@ -82,10 +82,15 @@ public class Constants {
      * 库存盘点*
      */
     //库存盘点情况appid
-    public static final String INVBALANCES_APPID = "TRANSFER";
+    public static final String N_INVVER_APPID = "N_INVVER";
 
     //库存盘点的表名
-    public static final String INVBALANCESS_NAME = "INVBALANCES";
+    public static final String N_INVVER_NAME = "N_INVVER";
+    //库存盘点行情况appid
+    public static final String N_INVVERLINE_APPID = "N_INVVERLINE";
+
+    //库存盘点行的表名
+    public static final String N_INVVERLINE_NAME = "N_INVVERLINE";
     /**
      * 库存使用情况*
      */

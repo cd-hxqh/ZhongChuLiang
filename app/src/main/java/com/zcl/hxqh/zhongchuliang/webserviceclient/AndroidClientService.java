@@ -175,7 +175,7 @@ public class AndroidClientService {
     /**
      * 库存盘点
      */
-    public String INV04Invadj(String userid, String storeroom, String itemnum, String binnum, String lotnum, String qty) {
+    public String INV04Invadj(String userid, String storeroom, String itemnum, String binnum, String lotnum, String qty,String adress) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -188,7 +188,37 @@ public class AndroidClientService {
         soapReq.addProperty("lotnum", lotnum);//货柜批次
         soapReq.addProperty("qty", qty);//数量
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        try {
+            httpTransport.call("urn:action", soapEnvelope);
+        } catch (IOException | XmlPullParserException e) {
+            e.printStackTrace();
+        }
+        String obj = null;
+        try {
+            obj = soapEnvelope.getResponse().toString();
+            String s = obj;
+        } catch (SoapFault soapFault) {
+            soapFault.printStackTrace();
+        }
+        return obj;
+    }
+
+    /**
+     * 库存盘点
+     */
+    public String INV08UpdateN(String invvernum, String sn, String itemnum, String physcnt,String adress) {
+
+        SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        soapEnvelope.implicitTypes = true;
+        soapEnvelope.dotNet = true;
+        SoapObject soapReq = new SoapObject(NAMESPACE, "mobileserviceINV08UpdateN_invverline");
+        soapReq.addProperty("INVVERNUM", invvernum);//用户名
+        soapReq.addProperty("SN", sn);//库房
+        soapReq.addProperty("ITEMNUM", itemnum);//物资编号
+        soapReq.addProperty("PHYSCNT", physcnt);//物资编号
+        soapEnvelope.setOutputSoapObject(soapReq);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {

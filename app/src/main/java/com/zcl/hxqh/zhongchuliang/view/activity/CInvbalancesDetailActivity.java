@@ -134,14 +134,14 @@ public class CInvbalancesDetailActivity extends BaseActivity {
             @Override
             protected String doInBackground(String... strings) {
                 String result = null;
-                String data = getBaseApplication().getWsService().INV04Invadj(getBaseApplication().getUsername(), location,
-                        invbalances.itemnum, invbalances.binnum, invbalances.lotnum, curbalText.getText().toString());
-                try {
-                    JSONObject jsonObject = new JSONObject(data);
-                    result = jsonObject.getString("msg");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+//                String data = getBaseApplication().getWsService().INV04Invadj(getBaseApplication().getUsername(), location,
+//                        invbalances.itemnum, invbalances.binnum, invbalances.lotnum, curbalText.getText().toString());
+//                try {
+//                    JSONObject jsonObject = new JSONObject(data);
+//                    result = jsonObject.getString("msg");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
                 return result;
             }
 

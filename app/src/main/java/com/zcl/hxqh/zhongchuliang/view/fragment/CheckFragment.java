@@ -12,11 +12,12 @@ import android.widget.LinearLayout;
 
 import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.adapter.InvAdapter;
+import com.zcl.hxqh.zhongchuliang.adapter.N_InvverAdapter;
 import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
 import com.zcl.hxqh.zhongchuliang.api.ImManager;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
 import com.zcl.hxqh.zhongchuliang.bean.Results;
-import com.zcl.hxqh.zhongchuliang.model.Inventory;
+import com.zcl.hxqh.zhongchuliang.model.N_Invver;
 import com.zcl.hxqh.zhongchuliang.view.widght.SwipeRefreshLayout;
 
 import java.io.IOException;
@@ -44,7 +45,7 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
      */
     LinearLayout notLinearLayout;
 
-    InvAdapter invAdapter;
+    N_InvverAdapter invverAdapter;
 
     private static final  int mark = 0;
 
@@ -73,8 +74,8 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mRecyclerView = (RecyclerView) view.findViewById(R.id.list_topics);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        invAdapter = new InvAdapter(getActivity(),mark);
-        mRecyclerView.setAdapter(invAdapter);
+        invverAdapter = new N_InvverAdapter(getActivity(),mark);
+        mRecyclerView.setAdapter(invverAdapter);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         mSwipeLayout.setColor(R.color.holo_blue_bright,
                 R.color.holo_green_light,
@@ -103,7 +104,7 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
      */
 
     private void getItemList() {
-        ImManager.getDataPagingInfo(getActivity(), ImManager.serInventoryUrl("",page, 20), new HttpRequestHandler<Results>() {
+        ImManager.getDataPagingInfo(getActivity(), ImManager.sercN_InvverUrl("", page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -111,20 +112,20 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
 
             @Override
             public void onSuccess(Results results, int totalPages, int currentPage) {
-                ArrayList<Inventory> items = null;
+                ArrayList<N_Invver> items = null;
                 try {
-                    items = Ig_Json_Model.parseInventoryFromString(results.getResultlist());
+                    items = Ig_Json_Model.parseN_InvverFromString(results.getResultlist());
                     mSwipeLayout.setRefreshing(false);
                     mSwipeLayout.setLoading(false);
                     if (items == null || items.isEmpty()) {
                         notLinearLayout.setVisibility(View.VISIBLE);
                     } else {
                         if (page == 1) {
-                            invAdapter = new InvAdapter(getActivity(),mark);
-                            mRecyclerView.setAdapter(invAdapter);
+                            invverAdapter = new N_InvverAdapter(getActivity(),mark);
+                            mRecyclerView.setAdapter(invverAdapter);
                         }
                         if (totalPages == page) {
-                            invAdapter.adddate(items);
+                            invverAdapter.adddate(items);
                         }
                     }
 

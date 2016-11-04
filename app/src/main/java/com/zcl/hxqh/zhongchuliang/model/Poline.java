@@ -27,6 +27,8 @@ public class Poline extends Entity {
     @JsonField(fieldName = "storeloc")
     public String storeloc; //目标库房
 
+    public boolean ischeck;//是否被选中
+
     public String getPolinenum() {
         return polinenum;
     }
@@ -89,5 +91,13 @@ public class Poline extends Entity {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public boolean ischeck() {
+        return ischeck;
+    }
+
+    public void setIscheck(boolean ischeck) {
+        this.ischeck = ischeck;
     }
 }

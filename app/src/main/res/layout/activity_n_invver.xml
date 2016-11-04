@@ -36,12 +36,12 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/workorder_wonum"
+                    android:text="@string/n_invver_invvernum"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/workorder_wonum"
+                    android:id="@+id/n_invver_invvernum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
@@ -68,12 +68,12 @@
                     android:layout_width="100dp"
                     android:layout_height="@dimen/dimen_40dp"
                     android:gravity="center_vertical"
-                    android:text="@string/workorder_description"
+                    android:text="@string/n_invver_description"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/workorder_description"
+                    android:id="@+id/n_invver_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
@@ -100,12 +100,12 @@
                     android:layout_width="100dp"
                     android:layout_height="@dimen/dimen_40dp"
                     android:gravity="center_vertical"
-                    android:text="@string/workorder_n_location"
+                    android:text="@string/n_invver_location"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/workorder_n_location"
+                    android:id="@+id/n_invver_location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
@@ -132,12 +132,12 @@
                     android:layout_width="100dp"
                     android:layout_height="@dimen/dimen_40dp"
                     android:gravity="center_vertical"
-                    android:text="@string/workorder_locdesc"
+                    android:text="@string/n_invver_locdesc"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_16sp" />
 
                 <TextView
-                    android:id="@+id/workorder_locdesc"
+                    android:id="@+id/n_invver_locdesc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
@@ -172,12 +172,12 @@
                         android:layout_width="100dp"
                         android:layout_height="@dimen/dimen_40dp"
                         android:gravity="center_vertical"
-                        android:text="@string/workorder_n_purpose"
+                        android:text="@string/n_invver_status"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
                     <TextView
-                        android:id="@+id/workorder_n_purpose"
+                        android:id="@+id/n_invver_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_5"
@@ -204,12 +204,12 @@
                         android:layout_width="100dp"
                         android:layout_height="@dimen/dimen_40dp"
                         android:gravity="center_vertical"
-                        android:text="@string/workorder_department"
+                        android:text="@string/n_invver_statusdate"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
                     <TextView
-                        android:id="@+id/workorder_department"
+                        android:id="@+id/n_invver_statusdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_5"
@@ -236,12 +236,12 @@
                         android:layout_width="100dp"
                         android:layout_height="@dimen/dimen_40dp"
                         android:gravity="center_vertical"
-                        android:text="@string/workorder_status"
+                        android:text="@string/n_invver_reportname"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
                     <TextView
-                        android:id="@+id/workorder_status"
+                        android:id="@+id/n_invver_reportname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_5"
@@ -268,12 +268,12 @@
                         android:layout_width="100dp"
                         android:layout_height="@dimen/dimen_40dp"
                         android:gravity="center_vertical"
-                        android:text="@string/workorder_statusdate"
+                        android:text="@string/n_invver_reportdate"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/dimens_16sp" />
 
                     <TextView
-                        android:id="@+id/workorder_statusdate"
+                        android:id="@+id/n_invver_reportdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dimen_5"
@@ -288,69 +288,7 @@
                     android:layout_height="0.2dp"
                     android:layout_below="@+id/num_linearlayout_id"
                     android:background="@drawable/line"></View>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_5"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="@dimen/dimen_40dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/workorder_reportname"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
-
-                    <TextView
-                        android:id="@+id/workorder_reportname"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dimen_5"
-                        android:hint="@string/have_not_data"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view_9_id"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.2dp"
-                    android:layout_below="@+id/num_linearlayout_id"
-                    android:background="@drawable/line"></View>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dimen_5"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="100dp"
-                        android:layout_height="@dimen/dimen_40dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/workorder_reportdate"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
-
-                    <TextView
-                        android:id="@+id/workorder_reportdate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dimen_5"
-                        android:hint="@string/have_not_data"
-                        android:textColor="@color/light_black"
-                        android:textSize="@dimen/dimens_16sp" />
-                </LinearLayout>
-
-                <View
-                    android:id="@+id/view_10_id"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0.2dp"
-                    android:layout_below="@+id/num_linearlayout_id"
-                    android:background="@drawable/line"></View>
             </LinearLayout>
 
             <RelativeLayout
@@ -369,39 +307,39 @@
             </RelativeLayout>
 
             <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginTop="30dp"-->
-            <!--android:gravity="center_vertical"-->
-            <!--android:orientation="horizontal">-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:orientation="horizontal">-->
 
-            <!--<Button-->
-            <!--android:id="@+id/po_recorde_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/dimen_40dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@drawable/btn_enable_green"-->
-            <!--android:text="@string/po_recorde_text"-->
-            <!--android:textColor="@color/white" />-->
+                <!--<Button-->
+                    <!--android:id="@+id/po_recorde_text"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/dimen_40dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@drawable/btn_enable_green"-->
+                    <!--android:text="@string/po_recorde_text"-->
+                    <!--android:textColor="@color/white" />-->
 
-            <!--<Button-->
-            <!--android:id="@+id/po_return_text"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="@dimen/dimen_40dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@drawable/btn_enable_green"-->
-            <!--android:text="@string/po_return_text"-->
-            <!--android:textColor="@color/white" />-->
+                <!--<Button-->
+                    <!--android:id="@+id/po_return_text"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="@dimen/dimen_40dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@drawable/btn_enable_green"-->
+                    <!--android:text="@string/po_return_text"-->
+                    <!--android:textColor="@color/white" />-->
 
 
             <!--</LinearLayout>-->
-            <com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView
-                android:id="@+id/listview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView
+            android:id="@+id/listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            </com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView>
+        </com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView>
         </LinearLayout>
 
     </ScrollView>

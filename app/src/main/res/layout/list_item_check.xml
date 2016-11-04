@@ -1,4 +1,4 @@
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_container"
     android:layout_width="match_parent"
@@ -68,30 +68,7 @@
                 android:textColor="#de000000"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/item_binnum_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_desc_title"
-                android:layout_marginTop="5dp"
-                android:text="@string/item_desc_title"
-                android:textColor="#de000000"
-                android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/item_binnum_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/item_desc_text"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/item_binnum_title"
-                android:ellipsize="end"
-                android:ems="14"
-                android:hint="@string/hint_item_desc_title"
-                android:singleLine="true"
-                android:textColor="#de000000"
-                android:textSize="16sp" />
         </RelativeLayout>
 
         <ImageView
@@ -103,6 +80,15 @@
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/item_more" />
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:focusable="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/avatar"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true">
+        </CheckBox>
     </RelativeLayout>
 
-</android.support.v7.widget.CardView>
+</RelativeLayout>

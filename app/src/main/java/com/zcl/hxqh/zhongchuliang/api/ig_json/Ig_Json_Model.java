@@ -8,6 +8,8 @@ import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Inventory_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Invreserve_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Locations_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Matrectrans_JsonHelper;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.N_Invver_JsonHelper;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.N_Invverline_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Po_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Poline_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.WorkOrder_JsonHelper;
@@ -16,6 +18,8 @@ import com.zcl.hxqh.zhongchuliang.model.Inventory;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
 import com.zcl.hxqh.zhongchuliang.model.Locations;
 import com.zcl.hxqh.zhongchuliang.model.Matrectrans;
+import com.zcl.hxqh.zhongchuliang.model.N_Invver;
+import com.zcl.hxqh.zhongchuliang.model.N_Invverline;
 import com.zcl.hxqh.zhongchuliang.model.Po;
 import com.zcl.hxqh.zhongchuliang.model.Poline;
 import com.zcl.hxqh.zhongchuliang.model.WorkOrder;
@@ -43,6 +47,7 @@ public class Ig_Json_Model {
     public static ArrayList<Invreserve> parseInvreserveFromString(String input) throws IOException {
         return Invreserve_JsonHelper.parseFromJsonList(input);
     }
+
     /**
      *入库管理采购单*
      */
@@ -62,6 +67,19 @@ public class Ig_Json_Model {
         return Poline_JsonHelper.parseFromJsonList(input);
     }
 
+    /**
+     * 库存盘点
+     */
+    public static ArrayList<N_Invver> parseN_InvverFromString(String input) throws IOException {
+        return N_Invver_JsonHelper.parseFromJsonList(input);
+    }
+
+    /**
+     * 库存盘点
+     */
+    public static ArrayList<N_Invverline> parseN_InvverlineFromString(String input) throws IOException {
+        return N_Invverline_JsonHelper.parseFromJsonList(input);
+    }
 
     /**
      * 库存使用情况

@@ -5,31 +5,50 @@ import com.instagram.common.json.annotation.JsonType;
 
 /**
  * Created by apple on 15/6/3.
- * 出库Invreserve
+ * 位置表
  */
 @JsonType
 public class Invreserve extends Entity {
+    @JsonField(fieldName = "wonum")
+    public String wonum; //所属工单号
 
+    @JsonField(fieldName = "requestnum")
+    public String requestnum; //请求
+    @JsonField(fieldName = "itemnum")
+    public String itemnum; //项目
     @JsonField(fieldName = "location")
     public String location; //库房
-
     @JsonField(fieldName = "description")
     public String description; //描述
-
-    @JsonField(fieldName = "itemnum")
-    public String itemnum; //物资编号
-
     @JsonField(fieldName = "reservedqty")
-    public String reservedqty; //数量
-    @JsonField(fieldName = "binnum")
-    public String binnum; //货柜
+    public String reservedqty; //已预留数量
+    @JsonField(fieldName = "restype")
+    public String restype; //预留类型
 
-    public String getBinnum() {
-        return binnum;
+    public boolean ischeck;//是否被选中
+
+    public String getWonum() {
+        return wonum;
     }
 
-    public void setBinnum(String binnum) {
-        this.binnum = binnum;
+    public void setWonum(String wonum) {
+        this.wonum = wonum;
+    }
+
+    public String getRequestnum() {
+        return requestnum;
+    }
+
+    public void setRequestnum(String requestnum) {
+        this.requestnum = requestnum;
+    }
+
+    public String getItemnum() {
+        return itemnum;
+    }
+
+    public void setItemnum(String itemnum) {
+        this.itemnum = itemnum;
     }
 
     public String getLocation() {
@@ -48,19 +67,19 @@ public class Invreserve extends Entity {
         this.description = description;
     }
 
-    public String getItemnum() {
-        return itemnum;
-    }
-
-    public void setItemnum(String itemnum) {
-        this.itemnum = itemnum;
-    }
-
     public String getReservedqty() {
         return reservedqty;
     }
 
     public void setReservedqty(String reservedqty) {
         this.reservedqty = reservedqty;
+    }
+
+    public String getRestype() {
+        return restype;
+    }
+
+    public void setRestype(String restype) {
+        this.restype = restype;
     }
 }

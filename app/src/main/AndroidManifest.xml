@@ -62,6 +62,12 @@
             android:name=".view.activity.PoMatrectransActivity"
             android:label="PoMatrectransActivity"></activity>
         <activity
+            android:name=".view.activity.N_InvverDetailActivity"
+            android:label="PoMatrectransActivity"></activity>
+        <activity
+            android:name=".view.activity.N_InvverlineDetailActivity"
+            android:label="PoMatrectransActivity"></activity>
+        <activity
             android:name=".view.activity.WorkOrderDetailsActivity"
             android:label="WorkOrderDetailsActivity"></activity>
         <activity

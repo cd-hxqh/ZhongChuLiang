@@ -103,18 +103,41 @@
     <!--出库详情-->
 
     <!--出库详情-->
-    <string name="workorder_wonum_title">编号:</string>
-    <string name="workorder_desction_title">描述:</string>
-    <string name="workorder_onbehalfof_title">领用人:</string>
-    <string name="workorder_status_title">状态:</string>
-    <string name="workorder_detail_title">出库详情</string>
-    <string name="invreserve_location_title">库房:</string>
-    <string name="withdrawing_text">退库</string>
-    <string name="issue_text">发放</string>
-    <string name="isfinish_title">已经生产编码 ?</string>
-    <string name="invbalances_pici_hint">请输入批次进行选择...</string>
+    <string name="workorder_detail_title">出库</string>
+    <string name="workorder_wonum">工单::</string>
+    <string name="workorder_description">描述:</string>
+    <string name="workorder_n_location">库房:</string>
+    <string name="workorder_locdesc">库房描述:</string>
+    <string name="workorder_n_purpose">领用用途</string>
+    <string name="workorder_department">部门:</string>
+    <string name="workorder_status">状态:</string>
+    <string name="workorder_statusdate">状态日期:</string>
+    <string name="workorder_reportname">申请人:</string>
+    <string name="workorder_reportdate">申请日期:</string>
     <string name="matrectrans_fromlot_title">原批次:</string>
     <string name="matrectrans_tolot_title">目标批次:</string>
+
+
+    <!--库存盘点主表-->
+    <string name="n_invver_invvernum">编号:</string>
+    <string name="n_invver_description">描述:</string>
+    <string name="n_invver_location">库房:</string>
+    <string name="n_invver_locdesc">库房描述:</string>
+    <string name="n_invver_status">状态:</string>
+    <string name="n_invver_statusdate">状态时间:</string>
+    <string name="n_invver_reportname">创建人:</string>
+    <string name="n_invver_reportdate">创建时间:</string>
+
+    <!--库存盘点行-->
+    <string name="n_invverline_sn">序号:</string>
+    <string name="n_invverline_itemnum">项目:</string>
+    <string name="n_invverline_itemdesc">项目描述:</string>
+    <string name="n_invverline_physcntdate">计划盘点日期:</string>
+    <string name="n_invverline_binnum">货柜:</string>
+    <string name="n_invverline_lotnum">批次:</string>
+    <string name="n_invverline_physcnt">实际库存:</string>
+    <string name="n_invverline_itemin19">规格型号:</string>
+    <string name="n_invverline_avblbalance">可用量:</string>
 
 
     <!--库存余量详情-->

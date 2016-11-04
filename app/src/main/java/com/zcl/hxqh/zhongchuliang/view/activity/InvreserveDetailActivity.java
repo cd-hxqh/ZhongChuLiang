@@ -116,7 +116,7 @@ public class InvreserveDetailActivity extends BaseActivity {
             desctionText.setText(invreserve.getDescription() == null ? "" : invreserve.getDescription());
             qtyText.setText(invreserve.getReservedqty() == null ? "" : invreserve.getReservedqty());
             locationText.setText(invreserve.getLocation() == null ? "" : invreserve.getLocation());
-            binnumText.setText(invreserve.getBinnum() == null ? "" : invreserve.getBinnum());
+//            binnumText.setText(invreserve.getBinnum() == null ? "" : invreserve.getBinnum());
         }
         chooseImageView.setOnClickListener(chooseImageViewOnClickListener);
         issueBtn.setOnClickListener(confirmBtnOnClickListener);
@@ -178,14 +178,14 @@ public class InvreserveDetailActivity extends BaseActivity {
             protected String doInBackground(String... strings) {
                 String result = null;
                 String data=null;
-                if(mark==0) {
-                     data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
-                            invreserve.itemnum, qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
-                }else{
-                    data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
-                            invreserve.itemnum, "-"+qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
-                }
-                Log.i(TAG, "data=" + data);
+//                if(mark==0) {
+//                     data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
+//                            invreserve.itemnum, qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
+//                }else{
+//                    data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
+//                            invreserve.itemnum, "-"+qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
+//                }
+//                Log.i(TAG, "data=" + data);
                 try {
                     JSONObject jsonObject = new JSONObject(data);
                     result = jsonObject.getString("msg");

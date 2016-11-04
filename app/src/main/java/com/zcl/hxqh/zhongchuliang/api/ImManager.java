@@ -47,15 +47,34 @@ public class ImManager {
 
     }
 
+    /**
+     * 设置库存盘点接口*
+     */
+    public static String sercN_InvverUrl(String search, int curpage, int showcount) {
+        if (search.equals("")) {
+            return "{'appid':'" + Constants.N_INVVER_APPID + "','objectname':'" + Constants.N_INVVER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read'}";
+        } else {
+            return "{'appid':'" + Constants.N_INVVER_APPID + "','objectname':'" + Constants.N_INVVER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'LOTNUM':'" + search + "'}}";
+        }
+
+    }
+
+    /**
+     * 设置物料接收*
+     */
+    public static String setN_InvverlineUrl(String invvernum) {
+        return "{'appid':'" + Constants.N_INVVERLINE_APPID + "','objectname':'" + Constants.N_INVVERLINE_NAME + "','option':'read','condition':{'INVVERNUM':'"+invvernum+"'}}";
+    }
+
 
     /**
      * 设置库存余量接口*
      */
     public static String sercInvbalancesUrl(String loaction, String search, int curpage, int showcount) {
         if (search.equals("")) {
-            return "{'appid':'" + Constants.INVBALANCES_APPID + "','objectname':'" + Constants.INVBALANCESS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'ITEMNUM':'" + loaction + "'}}";
+            return "{'appid':'" + Constants.N_INVVER_APPID + "','objectname':'" + Constants.N_INVVER_APPID + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'ITEMNUM':'" + loaction + "'}}";
         } else {
-            return "{'appid':'" + Constants.INVBALANCES_APPID + "','objectname':'" + Constants.INVBALANCESS_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'ITEMNUM':'" + loaction + "','LOTNUM':'" + search + "'}}";
+            return "{'appid':'" + Constants.N_INVVER_APPID + "','objectname':'" + Constants.N_INVVER_APPID + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'ITEMNUM':'" + loaction + "','LOTNUM':'" + search + "'}}";
         }
 
     }

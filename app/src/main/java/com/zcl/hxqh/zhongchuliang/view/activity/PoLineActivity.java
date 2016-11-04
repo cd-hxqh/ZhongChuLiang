@@ -18,7 +18,10 @@ import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
 import com.zcl.hxqh.zhongchuliang.api.ImManager;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
 import com.zcl.hxqh.zhongchuliang.bean.Results;
+import com.zcl.hxqh.zhongchuliang.constants.Constants;
+import com.zcl.hxqh.zhongchuliang.model.Po;
 import com.zcl.hxqh.zhongchuliang.model.Poline;
+import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
 import com.zcl.hxqh.zhongchuliang.view.widght.SwipeRefreshLayout;
 
@@ -56,6 +59,7 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
     public String ponum;
 
     public int mark; //1000接收，1001退货
+    private String type; //选择类型
 
     private int page = 1;
 
@@ -104,8 +108,10 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
     private void initView() {
         if (mark == 1000) {
             titleTextView.setText(R.string.po_recorde_text);
+            type = Constants.RECEIPT;
         } else if (mark == 1001) {
             titleTextView.setText(R.string.po_return_text);
+            type = Constants.RETURN;
             inputall.setVisibility(View.GONE);
         }
         backImage.setVisibility(View.VISIBLE);
@@ -139,7 +145,7 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
      */
 
     private void getPoLineList() {
-        ImManager.getDataPagingInfo(PoLineActivity.this, ImManager.setPolineUrl(ponum,page, 20), new HttpRequestHandler<Results>() {
+        ImManager.getDataPagingInfo(PoLineActivity.this, ImManager.setPolineUrl(ponum, page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
                 Log.i(TAG, "data=" + results);
@@ -191,30 +197,38 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
         @Override
         public void onClick(View v) {
             showProgressBar(R.string.submit_process_ing);
+            final ArrayList<Poline> items = polineAdapter.getChecked();
             new AsyncTask<String, String, String>() {
                 @Override
                 protected String doInBackground(String... strings) {
                     String result = null;
-                    String data = getBaseApplication().getWsService().INV01RecByPO(getBaseApplication().getUsername(),
-                            ponum);
-                    try {
-                        JSONObject jsonObject = new JSONObject(data);
-                        result = jsonObject.getString("msg");
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    for (Poline poline : items){
+                        String data = getBaseApplication().getWsService().INV02RecByPOLine(type, getBaseApplication().getUsername(),
+                                ponum, poline.polinenum, mark == 1000 ? Integer.parseInt(poline.orderqty) : -Integer.parseInt(poline.orderqty), AccountUtils.getIpAddress(PoLineActivity.this));
+                        if (data == null) {
+                            return "";
+                        }
+                }
                     return result;
                 }
 
                 @Override
                 protected void onPostExecute(String o) {
                     super.onPostExecute(o);
-                    Toast.makeText(PoLineActivity.this, o, Toast.LENGTH_SHORT).show();
-                    colseProgressBar();
-                    if (o.equals("操作成功！")) {
-                        polineAdapter = new PolineAdapter(PoLineActivity.this);
-                        mRecyclerView.setAdapter(polineAdapter);
+                    if (o==null||o.equals("")) {
+                        MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
                     }
+                    try {
+                        JSONObject jsonObject = new JSONObject(o);
+                        String result = jsonObject.getString("msg");
+                        MessageUtils.showMiddleToast(PoLineActivity.this, result);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
+                        PoLineActivity.this.finish();
+                    }
+                    PoLineActivity.this.finish();
                 }
             }.execute();
         }

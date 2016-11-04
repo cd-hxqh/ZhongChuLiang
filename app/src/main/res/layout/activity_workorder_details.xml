@@ -39,7 +39,7 @@
                     android:id="@+id/itemreq_itemreqnum_title"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/workorder_wonum_title"
+                    android:text="@string/workorder_wonum"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_20" />
 
@@ -76,7 +76,7 @@
                     android:id="@+id/itemreq_description_title"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/workorder_desction_title"
+                    android:text="@string/workorder_description"
 
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_20" />
@@ -114,7 +114,6 @@
                     android:id="@+id/itemreq_recorder_title"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/workorder_onbehalfof_title"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_20" />
 
@@ -149,7 +148,7 @@
                     android:id="@+id/itemreq_recorderdate_title"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/workorder_status_title"
+                    android:text="@string/workorder_status"
                     android:textColor="@color/light_black"
                     android:textSize="@dimen/dimens_20" />
 
