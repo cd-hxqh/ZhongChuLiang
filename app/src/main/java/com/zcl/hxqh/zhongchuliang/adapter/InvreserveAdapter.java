@@ -1,6 +1,5 @@
 package com.zcl.hxqh.zhongchuliang.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -8,28 +7,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
+import com.zcl.hxqh.zhongchuliang.model.Poline;
 import com.zcl.hxqh.zhongchuliang.view.activity.InvreserveDetailActivity;
+import com.zcl.hxqh.zhongchuliang.view.activity.InvreserveListActivity;
+import com.zcl.hxqh.zhongchuliang.view.activity.PoLineActivity;
+import com.zcl.hxqh.zhongchuliang.view.activity.PolineDetailActivity;
 
 import java.util.ArrayList;
 
 /**
- * Created by apple on 15/6/4.
- * 出库管理
+ * Created by think on 15/12/16.
  */
 public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.ViewHolder> {
 
     private static final String TAG = "InvreserveAdapter";
-    Context mContext;
+    InvreserveListActivity activity;
     ArrayList<Invreserve> invreserves = new ArrayList<Invreserve>();
-    private String wonum;
-    public InvreserveAdapter(Context context, String wonum) {
-        mContext = context;
-        this.wonum=wonum;
+
+    public InvreserveAdapter(InvreserveListActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -38,10 +40,10 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
         return new ViewHolder(v);
     }
 
-
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         final Invreserve invreserve = invreserves.get(i);
+
 
         viewHolder.itemNum.setText(invreserve.itemnum);
         viewHolder.itemDesc.setText(invreserve.description);
@@ -49,15 +51,20 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
         viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, InvreserveDetailActivity.class);
+                Intent intent = new Intent(activity, InvreserveDetailActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("invreserve", invreserve);
-                bundle.putString("wonum", wonum);
+                bundle.putString("wonum", activity.wonum);
                 intent.putExtras(bundle);
-                mContext.startActivity(intent);
+                activity.startActivity(intent);
             }
         });
-
+        viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                invreserve.ischeck = isChecked;
+            }
+        });
 
     }
 
@@ -86,10 +93,10 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public void adddate(ArrayList<Invreserve> data){
-        if(data.size()>0){
-            for(int i = 0;i < data.size();i++){
-                if(!invreserves.contains(data.get(i))){
+    public void adddate(ArrayList<Invreserve> data) {
+        if (data.size() > 0) {
+            for (int i = 0; i < data.size(); i++) {
+                if (!invreserves.contains(data.get(i))) {
                     invreserves.add(data.get(i));
                 }
             }
@@ -97,14 +104,23 @@ public class InvreserveAdapter extends RecyclerView.Adapter<InvreserveAdapter.Vi
         notifyDataSetChanged();
     }
 
-    public ArrayList<Invreserve> getChecked(){
-        ArrayList<Invreserve> polines = new ArrayList<>();
-        for (Invreserve invreserve : invreserves){
-            if (invreserve.ischeck){
-                polines.add(invreserve);
+    public void update(Invreserve invreserve) {
+        for (int i = 0; i < invreserves.size(); i++) {
+            if (invreserves.get(i).itemnum.equals(invreserve.itemnum)) {
+                invreserves.set(i, invreserve);
             }
         }
-        return polines;
+        notifyDataSetChanged();
+    }
+
+    public ArrayList<Invreserve> getChecked(){
+        ArrayList<Invreserve> list = new ArrayList<>();
+        for (Invreserve invreserve : invreserves){
+            if (invreserve.ischeck){
+                list.add(invreserve);
+            }
+        }
+        return list;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

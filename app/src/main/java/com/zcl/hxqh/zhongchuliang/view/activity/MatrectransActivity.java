@@ -41,7 +41,7 @@ public class MatrectransActivity extends BaseActivity {
 
     public TextView tolotText; //目标批次
 
-    private ImageView tobinImageView;
+//    private ImageView tobinImageView;
 
     private ImageView img;
 
@@ -89,7 +89,7 @@ public class MatrectransActivity extends BaseActivity {
         tostoreloc = (TextView) findViewById(R.id.matrectrans_tostoreloc);
         tostoreloclayout = (RelativeLayout) findViewById(R.id.tostoreloc_linearlayout_id);
         tobin = (TextView) findViewById(R.id.matrectrans_tobin);
-        tobinImageView = (ImageView) findViewById(R.id.matrectrans_tobin_choose);
+//        tobinImageView = (ImageView) findViewById(R.id.matrectrans_tobin_choose);
         tobinlayout = (RelativeLayout) findViewById(R.id.tobin_linearlayout_id);
 
         tolotText=(TextView)findViewById(R.id.matrectrans_tolot);
@@ -130,7 +130,7 @@ public class MatrectransActivity extends BaseActivity {
         frombinlayout.setOnClickListener(frombinClicklistener);
         tostoreloclayout.setOnClickListener(tostorelocClicklistener);
 //        tobinlayout.setOnClickListener(tobinClicklisener);
-        tobinImageView.setOnClickListener(tobinClicklisener);
+//        tobinImageView.setOnClickListener(tobinClicklisener);
     }
 
     private View.OnClickListener frombinClicklistener = new View.OnClickListener() {
@@ -171,6 +171,7 @@ public class MatrectransActivity extends BaseActivity {
         @Override
         public void onClick(View v) {
             matrectrans.receiptquantity = receiptquantity.getText().toString();
+            matrectrans.tobin = tobin.getText().toString();
             if(mark == 1000){
                 matrectrans.fromstoreloc = location;
             }else if(mark == 1001){
@@ -183,7 +184,9 @@ public class MatrectransActivity extends BaseActivity {
                 Toast.makeText(MatrectransActivity.this,"数量必须小于等于当前余量",Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (frombin.getText().toString().equals("")||tostoreloc.getText().toString().equals("")
+            if (
+//                    frombin.getText().toString().equals("")||
+                            tostoreloc.getText().toString().equals("")
                     ||tobin.getText().toString().equals("")){
                 Toast.makeText(MatrectransActivity.this,"请填写完整信息",Toast.LENGTH_SHORT).show();
                 return;

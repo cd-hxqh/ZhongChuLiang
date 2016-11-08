@@ -48,6 +48,7 @@ public class InvbalancesListActivity extends BaseActivity implements SwipeRefres
     private ImageView backImage; //返回
 
     private ImageView searchimg; //搜索
+    private ImageView searchbackImg;
 
     private EditText editText; // 搜索
 
@@ -108,6 +109,7 @@ public class InvbalancesListActivity extends BaseActivity implements SwipeRefres
         titleTextView = (TextView) findViewById(R.id.txt_title);
         titlelayout = (RelativeLayout) findViewById(R.id.title_contains);
         title_searchlayout = (RelativeLayout) findViewById(R.id.title_search_layout);
+        searchbackImg = (ImageView) findViewById(R.id.back_image_id);
         editText = (EditText) findViewById(R.id.search_edittext_id);
         backImage = (ImageView) findViewById(R.id.img_back);
         searchimg = (ImageView) findViewById(R.id.img_right);
@@ -134,6 +136,12 @@ public class InvbalancesListActivity extends BaseActivity implements SwipeRefres
             @Override
             public void onClick(View v) {
                 title_searchlayout.setVisibility(View.VISIBLE);
+            }
+        });
+        searchbackImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                title_searchlayout.setVisibility(View.GONE);
             }
         });
         editText.setOnEditorActionListener(editTextOnEditorActionListener);

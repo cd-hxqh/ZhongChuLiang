@@ -13,7 +13,7 @@ public class Locations extends Entity {
     @JsonField(fieldName = "locationsid")
     public String locationsid; //id
     @JsonField(fieldName = "location")
-    public String location; //编号
+    public String location; //仓库
     @JsonField(fieldName = "description")
     public String description; //描述
     @JsonField(fieldName = "siteid")

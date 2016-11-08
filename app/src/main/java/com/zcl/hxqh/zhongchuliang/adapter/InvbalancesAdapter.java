@@ -46,9 +46,9 @@ public class InvbalancesAdapter extends RecyclerView.Adapter<InvbalancesAdapter.
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
         final Invbalances item = mItems.get(position);
         viewHolder.itemNumTitle.setText(mContext.getString(R.string.invbalances_itemnum_text));
-        viewHolder.itemDescTitle.setText(mContext.getString(R.string.lotnum_text));
+        viewHolder.itemDescTitle.setText(mContext.getString(R.string.poline_desc));
         viewHolder.itemNum.setText(item.itemnum);
-        viewHolder.itemDesc.setText(item.lotnum);
+        viewHolder.itemDesc.setText(item.itemdesc);
 
         viewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

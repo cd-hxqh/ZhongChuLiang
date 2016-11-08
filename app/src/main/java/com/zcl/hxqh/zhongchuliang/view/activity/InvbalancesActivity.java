@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.adapter.MatrectransAdapter;
 import com.zcl.hxqh.zhongchuliang.model.Matrectrans;
+import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -81,12 +82,12 @@ public class InvbalancesActivity extends BaseActivity {
     }
 
     private void initView() {
-//        if (mark == 1000) {
-//            titleTextView.setText(R.string.invbalances_remove);
-//        } else if (mark == 1001) {
-//            titleTextView.setText(R.string.invbalances_move);
-//        }
-        titleTextView.setText(R.string.transfer_text);
+        if (mark == 1000) {
+            titleTextView.setText(R.string.locations_removed_btn);
+        } else if (mark == 1001) {
+            titleTextView.setText(R.string.locations_move_btn);
+        }
+//        titleTextView.setText(R.string.transfer_text);
         backImage.setVisibility(View.VISIBLE);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,7 +140,7 @@ public class InvbalancesActivity extends BaseActivity {
                             String data = getBaseApplication().getWsService().INV05Invtrans1(getBaseApplication().getUsername(),
                                     matrectranses.get(finalI).itemnum, matrectranses.get(finalI).receiptquantity,
                                     matrectranses.get(finalI).fromstoreloc, matrectranses.get(finalI).frombin, matrectranses.get(finalI).fromlot, matrectranses.get(finalI).tostoreloc,
-                                    matrectranses.get(finalI).tobin, matrectranses.get(finalI).tolot);
+                                    matrectranses.get(finalI).tobin, matrectranses.get(finalI).tolot, AccountUtils.getIpAddress(InvbalancesActivity.this));
 
                             Log.i(TAG,"data="+data);
                             try {
@@ -176,8 +177,8 @@ public class InvbalancesActivity extends BaseActivity {
         if (list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).receiptquantity == null || list.get(i).receiptquantity.equals("")
-                        || list.get(i).fromstoreloc == null || list.get(i).fromstoreloc.equals("")
-                        || list.get(i).frombin == null || list.get(i).frombin.equals("")
+//                        || list.get(i).fromstoreloc == null || list.get(i).fromstoreloc.equals("")
+//                        || list.get(i).frombin == null || list.get(i).frombin.equals("")
                         || list.get(i).tostoreloc == null || list.get(i).tostoreloc.equals("")
                         || list.get(i).tobin == null || list.get(i).tobin.equals("")) {
                     Toast.makeText(InvbalancesActivity.this, list.get(i).itemnum + "信息未完善", Toast.LENGTH_SHORT).show();

@@ -237,7 +237,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="100dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/item_more" />
@@ -316,7 +315,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
                     android:scaleType="centerCrop"
                     android:src="@drawable/item_more" />
             </RelativeLayout>
@@ -355,14 +353,13 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimens_16sp" />
 
-                <ImageView
-                    android:id="@+id/matrectrans_tobin_choose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/item_more" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/matrectrans_tobin_choose"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--android:src="@drawable/item_more" />-->
             </RelativeLayout>
 
             <View
@@ -388,12 +385,11 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimens_16sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/matrectrans_tolot"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dimen_5"
-                    android:background="@drawable/edittext_login"
                     android:layout_toRightOf="@+id/matrectrans_tolot_title"
                     android:hint="@string/have_not_data"
                     android:textColor="@color/black"

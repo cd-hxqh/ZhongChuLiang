@@ -134,7 +134,7 @@
                     android:layout_height="@dimen/dimen_40dp"
                     android:layout_weight="1"
                     android:textColor="@color/white"
-                    android:text="@string/transfer_text"
+                    android:text="@string/locations_removed_btn"
                     android:background="@drawable/btn_enable_green"/>
 
                 <Button
@@ -145,7 +145,6 @@
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/white"
                     android:text="@string/locations_move_btn"
-                    android:visibility="gone"
                     android:background="@drawable/btn_enable_green"/>
 
 

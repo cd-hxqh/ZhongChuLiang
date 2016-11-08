@@ -10,9 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zcl.hxqh.zhongchuliang.R;
+import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
+import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
 
 import org.json.JSONException;
@@ -28,41 +31,23 @@ public class InvreserveDetailActivity extends BaseActivity {
 
     private ImageView backImage; //返回
 
-    private Button issueBtn; //发放
-
-    private Button withdrawingBtn; //退货
+    private Invreserve invreserve;
+    private String wonum;
 
     /**
      * 界面说明*
      */
 
-    private TextView itemnumText; //物资编号
-    private TextView desctionText; //描述
-    private EditText qtyText; //当前余量
-    private TextView locationText; //库房
-    private TextView binnumText; //货柜
-    private TextView lotnumText; //批次
-    private ImageView chooseImageView; //选择
+    private TextView requestnum; //请求
+    private TextView itemnum;//项目
+    private TextView location;//库房
+    private TextView description; //描述
+    private TextView reservedqty;//已预留数量
+    private TextView restype; //预留类型
+    private EditText binnum; //货柜
 
-    /**
-     * Invreserve*
-     */
-    private Invreserve invreserve;
+    private Button input;//提交
 
-    /**
-     * 工单
-     */
-    private String wonum;
-
-
-    /**
-     * 进度条*
-     */
-    private ProgressDialog mProgressDialog;
-
-    private String negative; //退库时的数量
-
-    private int mark=0; //判断是发放还是退库
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +62,6 @@ public class InvreserveDetailActivity extends BaseActivity {
     private void initData() {
         invreserve = (Invreserve) getIntent().getSerializableExtra("invreserve");
         wonum = getIntent().getStringExtra("wonum");
-
-
     }
 
 
@@ -89,17 +72,15 @@ public class InvreserveDetailActivity extends BaseActivity {
         titleTextView = (TextView) findViewById(R.id.txt_title);
         backImage = (ImageView) findViewById(R.id.img_back);
 
-        itemnumText = (TextView) findViewById(R.id.invreserve_itemnum_text);
-        desctionText = (TextView) findViewById(R.id.inbalance_desction_text);
-        qtyText = (EditText) findViewById(R.id.invreserve_qty_text);
-        locationText = (TextView) findViewById(R.id.invreserve_location_text);
-        binnumText = (EditText) findViewById(R.id.invreserve_binnum_text);
-        lotnumText = (TextView) findViewById(R.id.invreserve_lotnum_text);
-        chooseImageView = (ImageView) findViewById(R.id.invreserve_binnum_choose);
+        requestnum = (TextView) findViewById(R.id.invreserve_requestnum);
+        itemnum = (TextView) findViewById(R.id.invreserve_itemnum);
+        location = (TextView) findViewById(R.id.invreserve_location);
+        description = (TextView) findViewById(R.id.invreserve_description);
+        reservedqty = (TextView) findViewById(R.id.invreserve_reservedqty);
+        restype = (TextView) findViewById(R.id.invreserve_restype);
+        binnum = (EditText) findViewById(R.id.invreserve_binnum);
 
-        issueBtn = (Button) findViewById(R.id.invreserve_issue_btn_id);
-        withdrawingBtn = (Button) findViewById(R.id.invreserve_withdrawing_btn_id);
-
+        input = (Button) findViewById(R.id.input_button_id);
     }
 
 
@@ -107,34 +88,18 @@ public class InvreserveDetailActivity extends BaseActivity {
      * 设置事件监听*
      */
     private void initView() {
-        titleTextView.setText("发放/退库");
+        titleTextView.setText(getString(R.string.title_activity_invbalance_detail));
         backImage.setOnClickListener(backOnClickListener);
         backImage.setVisibility(View.VISIBLE);
+        requestnum.setText(invreserve.requestnum);
+        itemnum.setText(invreserve.itemnum);
+        location.setText(invreserve.location);
+        description.setText(invreserve.description);
+        reservedqty.setText(invreserve.reservedqty);
+        restype.setText(invreserve.restype);
 
-        if (invreserve != null) {
-            itemnumText.setText(invreserve.getItemnum() == null ? "" : invreserve.getItemnum());
-            desctionText.setText(invreserve.getDescription() == null ? "" : invreserve.getDescription());
-            qtyText.setText(invreserve.getReservedqty() == null ? "" : invreserve.getReservedqty());
-            locationText.setText(invreserve.getLocation() == null ? "" : invreserve.getLocation());
-//            binnumText.setText(invreserve.getBinnum() == null ? "" : invreserve.getBinnum());
-        }
-        chooseImageView.setOnClickListener(chooseImageViewOnClickListener);
-        issueBtn.setOnClickListener(confirmBtnOnClickListener);
-        withdrawingBtn.setOnClickListener(confirmBtnOnClickListener);
+        input.setOnClickListener(inputOnClickListener);
     }
-
-
-    private View.OnClickListener chooseImageViewOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            Intent intent = new Intent(InvreserveDetailActivity.this, BinChooseActivity.class);
-            intent.putExtra("location", invreserve.getLocation());
-            intent.putExtra("itemnum", invreserve.getItemnum());
-            intent.putExtra("requestCode", 3);
-            startActivityForResult(intent, 3);
-        }
-    };
-
 
     private View.OnClickListener backOnClickListener = new View.OnClickListener() {
         @Override
@@ -143,79 +108,57 @@ public class InvreserveDetailActivity extends BaseActivity {
         }
     };
 
-
-    private View.OnClickListener confirmBtnOnClickListener = new View.OnClickListener() {
+    private View.OnClickListener inputOnClickListener = new View.OnClickListener() {
         @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.invreserve_issue_btn_id:
-                    negative= qtyText.getText().toString();
-                    mark=0;
-                    break;
-                case R.id.invreserve_withdrawing_btn_id:
-                    mark=1;
-                    negative= qtyText.getText().toString();
-                    break;
-            }
+        public void onClick(View v) {
+            if (isOK()) {
+                showProgressBar(R.string.submit_process_ing);
+                final String num = binnum.getText().toString();
+                new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... strings) {
 
-            if ( Integer.parseInt(negative)>= Integer.parseInt(invreserve.reservedqty)) {
-                MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "数量必须小于等于当前余量");
-            } else {
-                mProgressDialog = ProgressDialog.show(InvreserveDetailActivity.this, null,
-                        "正在提交中...", true, true);
-                confirmData();
+
+                        String data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveDetailActivity.this), wonum,
+                                invreserve.itemnum, invreserve.reservedqty, invreserve.location, "", AccountUtils.getIpAddress(InvreserveDetailActivity.this));
+                        Log.i(TAG, "data=" + data);
+                        if (data == null) {
+                            return "";
+                        }
+                        return data;
+                    }
+
+                    @Override
+                    protected void onPostExecute(String o) {
+                        super.onPostExecute(o);
+                        colseProgressBar();
+
+                        if (o==null||o.equals("")) {
+                            MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "操作失败");
+                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(o);
+                            String result = jsonObject.getString("msg");
+                            MessageUtils.showMiddleToast(InvreserveDetailActivity.this, result);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "操作失败");
+                            InvreserveDetailActivity.this.finish();
+                        }
+                        InvreserveDetailActivity.this.finish();
+                    }
+                }.execute();
             }
         }
     };
 
-
-    /**
-     * 提交数据方法*
-     */
-    private void confirmData() {
-        new AsyncTask<String, String, String>() {
-            @Override
-            protected String doInBackground(String... strings) {
-                String result = null;
-                String data=null;
-//                if(mark==0) {
-//                     data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
-//                            invreserve.itemnum, qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
-//                }else{
-//                    data = getBaseApplication().getWsService().INV03Issue(getBaseApplication().getUsername(), wonum,
-//                            invreserve.itemnum, "-"+qtyText.getText().toString(), invreserve.location, binnumText.getText().toString(), lotnumText.getText().toString());
-//                }
-//                Log.i(TAG, "data=" + data);
-                try {
-                    JSONObject jsonObject = new JSONObject(data);
-                    result = jsonObject.getString("msg");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                return result;
-            }
-
-            @Override
-            protected void onPostExecute(String s) {
-                super.onPostExecute(s);
-                mProgressDialog.cancel();
-
-                MessageUtils.showMiddleToast(InvreserveDetailActivity.this, s);
-                finish();
-            }
-        }.execute();
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (resultCode) {
-            case 3:
-                String s3 = data.getStringExtra("binnum");
-                String lotnum = data.getStringExtra("tolot");
-                binnumText.setText(s3);
-                lotnumText.setText(lotnum);
-                break;
+    private boolean isOK() {
+        if (binnum == null || binnum.getText().equals("")) {
+            Toast.makeText(InvreserveDetailActivity.this, "请完善信息", Toast.LENGTH_SHORT).show();
+            return false;
+        }else {
+            return true;
         }
     }
 }

@@ -120,20 +120,24 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
      */
     public void handleDecode(Result result) {
         inactivityTimer.onActivity();
-        playBeepSoundAndVibrate();
+//        playBeepSoundAndVibrate();
         String resultString = result.getText();
         if (resultString.equals("")) {
             Toast.makeText(MipcaActivityCapture.this, "Scan failed!", Toast.LENGTH_SHORT).show();
         }else {
-            Intent resultIntent = new Intent();
-            Bundle bundle = new Bundle();
-            bundle.putString("result", resultString);
-            bundle.putInt("mark",mark);
-            Log.i("MipcaActivityCapture", "resultString=" + resultString);
-            resultIntent.putExtras(bundle);
-            resultIntent.setClass(MipcaActivityCapture.this, Results_Activity.class);
-            this.setResult(RESULT_OK, resultIntent);
-            startActivityForResult(resultIntent,RESULT_OK);
+//            Intent resultIntent = new Intent();
+//            Bundle bundle = new Bundle();
+//            bundle.putString("result", resultString);
+//            bundle.putInt("mark",mark);
+//            Log.i("MipcaActivityCapture", "resultString=" + resultString);
+//            resultIntent.putExtras(bundle);
+//            resultIntent.setClass(MipcaActivityCapture.this, Results_Activity.class);
+//            this.setResult(RESULT_OK, resultIntent);
+//            startActivityForResult(resultIntent,RESULT_OK);
+            Intent intent = getIntent();
+            intent.putExtra("result", resultString);
+            MipcaActivityCapture.this.setResult(mark, intent);
+            finish();
         }
         MipcaActivityCapture.this.finish();
     }

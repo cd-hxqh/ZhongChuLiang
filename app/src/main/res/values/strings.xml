@@ -54,8 +54,8 @@
     <string name="location_zhuangyi_matrectrans">转移详情</string>
 
     <!-- 二微码扫描 -->
-    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
-    <string name="scanning_text">条码/二维码</string>
+    <string name="scan_text">将条码放入框内, 即可自动扫描</string>
+    <string name="scanning_text">条码</string>
 
     <!--入库详情-->
     <string name="po_num_text">采购单:</string>
@@ -116,6 +116,16 @@
     <string name="workorder_reportdate">申请日期:</string>
     <string name="matrectrans_fromlot_title">原批次:</string>
     <string name="matrectrans_tolot_title">目标批次:</string>
+    <string name="workorder_choose_item">选择预留项目</string>
+
+    <!--出库预留项目-->
+    <string name="invreserve_requestnum">请求:</string>
+    <string name="invreserve_itemnum">项目:</string>
+    <string name="invreserve_location">库房:</string>
+    <string name="invreserve_description">描述:</string>
+    <string name="invreserve_reservedqty">已预留数量:</string>
+    <string name="invreserve_restype">预留类型:</string>
+    <string name="invreserve_binnum">货柜:</string>
 
 
     <!--库存盘点主表-->
@@ -176,7 +186,7 @@
     <string name="matrectrans_fromstoreloc">原仓库:</string>
     <string name="matrectrans_tostoreloc_title">目标仓库</string>
     <string name="matrectrans_tostoreloc">目标仓库:</string>
-    <string name="matrectrans_tobin">目标库位号:</string>
+    <string name="matrectrans_tobin">目标货柜:</string>
     <string name="matrectrans_details">转移详情</string>
     <string name="matrectrans_po_details">物料接收详情</string>
     <string name="matrectrans_polinenum">PO行:</string>

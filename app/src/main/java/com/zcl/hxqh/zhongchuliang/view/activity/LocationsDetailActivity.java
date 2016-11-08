@@ -31,7 +31,7 @@ public class LocationsDetailActivity extends BaseActivity {
 
 
     private Button removedBtn; //转移
-//    private Button moveBtn; //移入
+    private Button moveBtn; //移入
 
 
     /**Locations**/
@@ -68,7 +68,7 @@ public class LocationsDetailActivity extends BaseActivity {
 
 
         removedBtn=(Button)findViewById(R.id.locations_removed_btn_id);
-//        moveBtn=(Button)findViewById(R.id.locations_move_btn_id);
+        moveBtn=(Button)findViewById(R.id.locations_move_btn_id);
     }
 
     /**设置事件监听**/
@@ -84,7 +84,7 @@ public class LocationsDetailActivity extends BaseActivity {
 
 
         removedBtn.setOnClickListener(new IntentClickListener(REMOVED_MARK));
-//        moveBtn.setOnClickListener(new IntentClickListener(MOVED_MARK));
+        moveBtn.setOnClickListener(new IntentClickListener(MOVED_MARK));
     }
 
 

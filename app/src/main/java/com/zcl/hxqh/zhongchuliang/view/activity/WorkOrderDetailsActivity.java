@@ -1,6 +1,7 @@
 package com.zcl.hxqh.zhongchuliang.view.activity;
 
 import android.animation.LayoutTransition;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -75,14 +76,16 @@ public class WorkOrderDetailsActivity extends BaseActivity {
 
     private LinearLayout loadLayout;//加载布局
 
-    private ScrollView scrollView;
+    private Button chooseItem;//选择预留项目
 
-    private ListViewForScrollView listView;
-    ListViewForScrollView.LayoutManager mLayoutManager;
+//    private ScrollView scrollView;
+//
+//    private ListViewForScrollView listView;
+//    ListViewForScrollView.LayoutManager mLayoutManager;
 
 
-    private InvreserveAdapter invreserveAdapter;
-    private ArrayList<Invreserve> items = new ArrayList<>();
+//    private InvreserveAdapter invreserveAdapter;
+//    private ArrayList<Invreserve> items = new ArrayList<>();
 
 
 //    private String wonum="965361";
@@ -129,11 +132,13 @@ public class WorkOrderDetailsActivity extends BaseActivity {
         loadmoreButton = (Button) findViewById(R.id.load_more_button);
         loadLayout = (LinearLayout) findViewById(R.id.load_layout);
 
-        scrollView = (ScrollView) findViewById(R.id.scrollView);
-        listView = (ListViewForScrollView) findViewById(R.id.listview);
+        chooseItem = (Button) findViewById(R.id.workorder_choose_item);
+
+//        scrollView = (ScrollView) findViewById(R.id.scrollView);
+//        listView = (ListViewForScrollView) findViewById(R.id.listview);
 
 
-        getInvreserveList(workOrder.wonum);
+//        getInvreserveList(workOrder.wonum);
 //        getInvreserveList(wonum);
     }
 
@@ -145,11 +150,11 @@ public class WorkOrderDetailsActivity extends BaseActivity {
         titleTextView.setText(getString(R.string.workorder_detail_title));
         backImage.setOnClickListener(backOnClickListener);
         backImage.setVisibility(View.VISIBLE);
-        scrollView.smoothScrollTo(0, 0);
-        mLayoutManager = new LinearLayoutManager(this);
-        listView.setLayoutManager(mLayoutManager);
-        invreserveAdapter = new InvreserveAdapter(WorkOrderDetailsActivity.this,workOrder.wonum);
-        listView.setAdapter(invreserveAdapter);
+//        scrollView.smoothScrollTo(0, 0);
+//        mLayoutManager = new LinearLayoutManager(this);
+//        listView.setLayoutManager(mLayoutManager);
+//        invreserveAdapter = new InvreserveAdapter(WorkOrderDetailsActivity.this,workOrder.wonum);
+//        listView.setAdapter(invreserveAdapter);
 
         if (workOrder != null) {
             wonum.setText(workOrder.wonum);
@@ -179,6 +184,7 @@ public class WorkOrderDetailsActivity extends BaseActivity {
             }
         });
 
+        chooseItem.setOnClickListener(chooseItemOnClickListener);
     }
 
     private View.OnClickListener backOnClickListener = new View.OnClickListener() {
@@ -188,45 +194,53 @@ public class WorkOrderDetailsActivity extends BaseActivity {
         }
     };
 
+    private View.OnClickListener chooseItemOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(WorkOrderDetailsActivity.this, InvreserveListActivity.class);
+            intent.putExtra("wonum",workOrder.wonum);
+            startActivity(intent);
+        }
+    };
 
-    /**
-     * 获取gInvreserve信息*
-     */
-
-    private void getInvreserveList(final String wonum) {
-        ImManager.getDataPagingInfo(this, ImManager.serInvreserveUrl(wonum, "", page, 20), new HttpRequestHandler<Results>() {
-            @Override
-            public void onSuccess(Results results) {
-//                Log.i(TAG, "data=" + results);
-            }
-
-            @Override
-            public void onSuccess(Results results, int totalPages, int currentPage) {
-                items = new ArrayList<Invreserve>();
-                try {
-                    items = Ig_Json_Model.parseInvreserveFromString(results.getResultlist());
-                    if (items == null || items.isEmpty()) {
-                    } else {
-                        invreserveAdapter.adddate(items);
-//                        if (page == 1) {
-//                            poAdapter = new PoAdapter(getActivity());
-//                            mRecyclerView.setAdapter(poAdapter);
-//                        }
-//                        if (page == totalPages) {
-//                            poAdapter.adddate(items);
-//                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(String error) {
-//                mSwipeLayout.setRefreshing(false);
-//                notLinearLayout.setVisibility(View.VISIBLE);
-            }
-        });
-    }
+//    /**
+//     * 获取gInvreserve信息*
+//     */
+//
+//    private void getInvreserveList(final String wonum) {
+//        ImManager.getDataPagingInfo(this, ImManager.serInvreserveUrl(wonum, "", page, 20), new HttpRequestHandler<Results>() {
+//            @Override
+//            public void onSuccess(Results results) {
+////                Log.i(TAG, "data=" + results);
+//            }
+//
+//            @Override
+//            public void onSuccess(Results results, int totalPages, int currentPage) {
+//                items = new ArrayList<Invreserve>();
+//                try {
+//                    items = Ig_Json_Model.parseInvreserveFromString(results.getResultlist());
+//                    if (items == null || items.isEmpty()) {
+//                    } else {
+//                        invreserveAdapter.adddate(items);
+////                        if (page == 1) {
+////                            poAdapter = new PoAdapter(getActivity());
+////                            mRecyclerView.setAdapter(poAdapter);
+////                        }
+////                        if (page == totalPages) {
+////                            poAdapter.adddate(items);
+////                        }
+//                    }
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(String error) {
+////                mSwipeLayout.setRefreshing(false);
+////                notLinearLayout.setVisibility(View.VISIBLE);
+//            }
+//        });
+//    }
 
 }
