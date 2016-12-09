@@ -3,9 +3,6 @@ package com.zcl.hxqh.zhongchuliang.webserviceclient;
 
 import android.util.Log;
 
-import com.zcl.hxqh.zhongchuliang.constants.Constants;
-import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
-
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
@@ -141,7 +138,7 @@ public class AndroidClientService {
     /**
      * 库存出库
      */
-    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom,String binnum,String issueto,String adress) {
+    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom,String binnum,String issueto,String adress,String n_cardnum,String enterby) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -153,8 +150,9 @@ public class AndroidClientService {
         soapReq.addProperty("qty", qty);//数量
         soapReq.addProperty("storeroom", storeroom);//库房
         soapReq.addProperty("binnum", binnum);//货柜
-        soapReq.addProperty("ISSUETO", issueto);//发放到
-//        soapReq.addProperty("lotnum", lotnum);//批次
+        soapReq.addProperty("issueto", issueto);//发放到
+        soapReq.addProperty("n_cardnum", n_cardnum);//卡号
+        soapReq.addProperty("enterby", enterby);//使用人
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
         try {

@@ -26,6 +26,10 @@ public class Invreserve extends Entity {
     public String restype; //预留类型
     @JsonField(fieldName = "issueto")
     public String issueto; //发放到
+    @JsonField(fieldName = "issueto")
+    public String n_cardnum; //发放到
+    @JsonField(fieldName = "issueto")
+    public String enterby; //发放到
 
     public boolean ischeck;//是否被选中
 
@@ -91,5 +95,21 @@ public class Invreserve extends Entity {
 
     public void setIssueto(String issueto) {
         this.issueto = issueto;
+    }
+
+    public String getN_cardnum() {
+        return n_cardnum;
+    }
+
+    public void setN_cardnum(String n_cardnum) {
+        this.n_cardnum = n_cardnum;
+    }
+
+    public String getEnterby() {
+        return enterby;
+    }
+
+    public void setEnterby(String enterby) {
+        this.enterby = enterby;
     }
 }

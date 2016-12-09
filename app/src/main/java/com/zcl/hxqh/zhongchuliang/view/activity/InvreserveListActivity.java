@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,7 +18,6 @@ import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
 import com.zcl.hxqh.zhongchuliang.api.ImManager;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
 import com.zcl.hxqh.zhongchuliang.bean.Results;
-import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
 import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
@@ -35,7 +33,7 @@ import java.util.ArrayList;
  * Created by think on 2015/12/16.
  * 出库预留项目列表页面
  */
-public class InvreserveListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
+public class InvreserveListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
     private static final String TAG = "InvreserveListActivity";
 
     private TextView titleTextView; // 标题
@@ -143,8 +141,8 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
         @Override
         public void onClick(View v) {
             Intent intent = new Intent(InvreserveListActivity.this, MipcaActivityCapture.class);
-            intent.putExtra("mark",-2);
-            intent.putExtra("wonum",wonum);
+            intent.putExtra("mark", -2);
+            intent.putExtra("wonum", wonum);
             startActivityForResult(intent, 0);
         }
     };
@@ -211,7 +209,7 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
                             String data = null;
                             for (Invreserve invreserve : items) {
                                 data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveListActivity.this), wonum,
-                                        invreserve.itemnum, invreserve.reservedqty, invreserve.location, "",invreserve.issueto, AccountUtils.getIpAddress(InvreserveListActivity.this));
+                                        invreserve.itemnum, invreserve.reservedqty, invreserve.location, "", invreserve.issueto, AccountUtils.getIpAddress(InvreserveListActivity.this), invreserve.n_cardnum, invreserve.enterby);
                                 if (data == null) {
                                     return "";
                                 }

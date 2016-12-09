@@ -6,20 +6,15 @@ import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
-import android.nfc.tech.MifareClassic;
-import android.nfc.tech.MifareUltralight;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zcl.hxqh.zhongchuliang.R;
-
-import java.io.UnsupportedEncodingException;
 
 /**
  * Created by Administrator on 2016/12/5.
@@ -143,7 +138,7 @@ public class NFC_Activity extends BaseActivity {
         StringBuilder sb = new StringBuilder();
         Tag tag = (Tag) p;
         byte[] id = tag.getId();
-        sb.append("Tag ID (dec): ").append(getDec(id)).append("\n");
+        sb.append(getDec(id));
         Intent intent1 = new Intent();
         intent1.putExtra("cardnum", sb.toString());
         NFC_Activity.this.setResult(1, intent1);

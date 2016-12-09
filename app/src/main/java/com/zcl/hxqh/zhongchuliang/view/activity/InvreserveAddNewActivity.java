@@ -2,7 +2,6 @@ package com.zcl.hxqh.zhongchuliang.view.activity;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -113,7 +112,7 @@ public class InvreserveAddNewActivity extends BaseActivity {
 
 
                         String data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveAddNewActivity.this), wonum,
-                                itemNum, invreserve.reservedqty, invreserve.location, num,"", AccountUtils.getIpAddress(InvreserveAddNewActivity.this));
+                                itemNum, invreserve.reservedqty, invreserve.location, num,"", AccountUtils.getIpAddress(InvreserveAddNewActivity.this),"","");
 //                        Log.i(TAG, "data=" + data);
                         if (data == null) {
                             return "";

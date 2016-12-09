@@ -1,10 +1,8 @@
 package com.zcl.hxqh.zhongchuliang.view.activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,7 +15,6 @@ import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
 import com.zcl.hxqh.zhongchuliang.api.ImManager;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
 import com.zcl.hxqh.zhongchuliang.bean.Results;
-import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
 import com.zcl.hxqh.zhongchuliang.model.Person;
 import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
@@ -128,8 +125,8 @@ public class InvreserveDetailActivity extends BaseActivity {
     private View.OnClickListener cardnumOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(InvreserveDetailActivity.this,NFC_Activity.class);
-            startActivityForResult(intent,1);
+            Intent intent = new Intent(InvreserveDetailActivity.this, NFC_Activity.class);
+            startActivityForResult(intent, 1);
         }
     };
 
@@ -140,11 +137,14 @@ public class InvreserveDetailActivity extends BaseActivity {
                 showProgressBar(R.string.submit_process_ing);
                 final String num = binnum.getText().toString();
                 final String issueto2 = issueto.getText().toString();
+                final String n_cardnum = cardnum.getText().toString();
+                final String enterby = usrby.getText().toString();
+
                 new AsyncTask<String, String, String>() {
                     @Override
                     protected String doInBackground(String... strings) {
                         String data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveDetailActivity.this), wonum,
-                                invreserve.itemnum, invreserve.reservedqty, invreserve.location, num,issueto2, AccountUtils.getIpAddress(InvreserveDetailActivity.this));
+                                invreserve.itemnum, invreserve.reservedqty, invreserve.location, num, issueto2, AccountUtils.getIpAddress(InvreserveDetailActivity.this), n_cardnum, enterby);
 //                        Log.i(TAG, "data=" + data);
                         if (data == null) {
                             return "";
@@ -157,7 +157,7 @@ public class InvreserveDetailActivity extends BaseActivity {
                         super.onPostExecute(o);
                         colseProgressBar();
 
-                        if (o==null||o.equals("")) {
+                        if (o == null || o.equals("")) {
                             MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "操作失败");
                         }
                         try {
@@ -179,12 +179,15 @@ public class InvreserveDetailActivity extends BaseActivity {
 
     private boolean isOK() {
         if (binnum == null || binnum.getText().toString().equals("")) {
-            Toast.makeText(InvreserveDetailActivity.this, "请填写货柜", Toast.LENGTH_SHORT).show();
+            MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "请填写货柜");
             return false;
-        }else if (issueto == null || issueto.getText().toString().equals("")){
-            Toast.makeText(InvreserveDetailActivity.this, "请填写发放到", Toast.LENGTH_SHORT).show();
+        } else if (issueto == null || issueto.getText().toString().equals("")) {
+            MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "请填写发放到");
             return false;
-        }else {
+        }
+
+
+        else {
             return true;
         }
     }
@@ -205,11 +208,11 @@ public class InvreserveDetailActivity extends BaseActivity {
                 ArrayList<Person> items = new ArrayList<Person>();
                 try {
                     items = Ig_Json_Model.parsePersonFromString(results.getResultlist());
-                    if (items.size()==0){
+                    if (items.size() == 0) {
                         Toast.makeText(InvreserveDetailActivity.this, "未查询到此人", Toast.LENGTH_SHORT).show();
-                    }else if(items.size()==1){
+                    } else if (items.size() == 1) {
                         usrby.setText(items.get(0).displayname);
-                    }else {
+                    } else {
                         Toast.makeText(InvreserveDetailActivity.this, "查询错误", Toast.LENGTH_SHORT).show();
                     }
                 } catch (IOException e) {
