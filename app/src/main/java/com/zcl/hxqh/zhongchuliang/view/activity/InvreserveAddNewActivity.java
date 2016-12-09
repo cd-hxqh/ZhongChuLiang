@@ -111,6 +111,8 @@ public class InvreserveAddNewActivity extends BaseActivity {
                     protected String doInBackground(String... strings) {
 
 
+
+
                         String data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveAddNewActivity.this), wonum,
                                 itemNum, invreserve.reservedqty, invreserve.location, num,"", AccountUtils.getIpAddress(InvreserveAddNewActivity.this),"","");
 //                        Log.i(TAG, "data=" + data);
