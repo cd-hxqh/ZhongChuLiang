@@ -57,6 +57,10 @@ public class InvreserveDetailActivity extends BaseActivity {
     private Button input;//提交
 
 
+    /**使用人**/
+    private String enterby;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +142,6 @@ public class InvreserveDetailActivity extends BaseActivity {
                 final String num = binnum.getText().toString();
                 final String issueto2 = issueto.getText().toString();
                 final String n_cardnum = cardnum.getText().toString();
-                final String enterby = usrby.getText().toString();
 
                 new AsyncTask<String, String, String>() {
                     @Override
@@ -197,7 +200,7 @@ public class InvreserveDetailActivity extends BaseActivity {
      */
 
     private void getPerson(String cardnum) {
-        ImManager.getDataPagingInfo(this, ImManager.setPersonUrl(cardnum), new HttpRequestHandler<Results>() {
+        ImManager.getData(this, ImManager.setPersonUrl(cardnum), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
 //                Log.i(TAG, "data=" + results);
@@ -212,6 +215,7 @@ public class InvreserveDetailActivity extends BaseActivity {
                         Toast.makeText(InvreserveDetailActivity.this, "未查询到此人", Toast.LENGTH_SHORT).show();
                     } else if (items.size() == 1) {
                         usrby.setText(items.get(0).displayname);
+                        enterby=items.get(0).personid;
                     } else {
                         Toast.makeText(InvreserveDetailActivity.this, "查询错误", Toast.LENGTH_SHORT).show();
                     }

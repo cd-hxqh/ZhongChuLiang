@@ -14,6 +14,8 @@ public class Person extends Entity {
     public String n_cardnum; //卡号
     @JsonField(fieldName = "displayname")
     public String displayname; //使用人
+    @JsonField(fieldName = "personid")
+    public String personid; //使用人
 
     public String getN_cardnum() {
         return n_cardnum;
@@ -29,5 +31,13 @@ public class Person extends Entity {
 
     public void setDisplayname(String displayname) {
         this.displayname = displayname;
+    }
+
+    public String getPersonid() {
+        return personid;
+    }
+
+    public void setPersonid(String personid) {
+        this.personid = personid;
     }
 }

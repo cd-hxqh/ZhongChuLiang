@@ -76,7 +76,7 @@ public class AndroidClientService {
     /**
      * 入库管理接收/退货
      */
-    public  String INV01RecByPO(String userid, String ponum) {
+    public String INV01RecByPO(String userid, String ponum) {
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
@@ -103,8 +103,8 @@ public class AndroidClientService {
     /**
      * 入库管理接收/退货
      */
-    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty,String adress) {
-        Log.i(TAG,"qty="+qty);
+    public String INV02RecByPOLine(String issuetype, String userid, String ponum, String polinenum, int qty, String adress) {
+        Log.i(TAG, "qty=" + qty);
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
@@ -117,7 +117,7 @@ public class AndroidClientService {
 //        if(issuetype.equals(Constants.RETURN)) {
 //        }
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress + url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {
@@ -138,8 +138,8 @@ public class AndroidClientService {
     /**
      * 库存出库
      */
-    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom,String binnum,String issueto,String adress,String n_cardnum,String enterby) {
-
+    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom, String binnum, String issueto, String adress, String n_cardnum, String enterby) {
+        Log.i(TAG, "userid="+userid+",wonum="+wonum+",itemnum="+itemnum+",qty="+",storeroom="+storeroom+",issueto="+issueto+",n_cardnum=" + n_cardnum + ",enterby=" + enterby);
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;
@@ -154,7 +154,7 @@ public class AndroidClientService {
         soapReq.addProperty("n_cardnum", n_cardnum);//卡号
         soapReq.addProperty("enterby", enterby);//使用人
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress + url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {
@@ -174,7 +174,7 @@ public class AndroidClientService {
     /**
      * 库存盘点
      */
-    public String INV04Invadj(String userid, String storeroom, String itemnum, String binnum, String lotnum, String qty,String adress) {
+    public String INV04Invadj(String userid, String storeroom, String itemnum, String binnum, String lotnum, String qty, String adress) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -187,7 +187,7 @@ public class AndroidClientService {
         soapReq.addProperty("lotnum", lotnum);//货柜批次
         soapReq.addProperty("qty", qty);//数量
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress + url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {
@@ -206,7 +206,7 @@ public class AndroidClientService {
     /**
      * 库存盘点
      */
-    public String INV08UpdateN(String invvernum, String sn, String itemnum, String physcnt,String adress) {
+    public String INV08UpdateN(String invvernum, String sn, String itemnum, String physcnt, String adress) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -217,7 +217,7 @@ public class AndroidClientService {
         soapReq.addProperty("ITEMNUM", itemnum);//物资编号
         soapReq.addProperty("PHYSCNT", physcnt);//物资编号
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress + url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {
@@ -237,7 +237,7 @@ public class AndroidClientService {
     /**
      * 库存移出
      */
-    public String INV05Invtrans1(String userid, String itemnum, String qty, String storeroom1, String binnum1, String lotnum1, String storeroom2, String binnum2, String lotnum2,String adress) {
+    public String INV05Invtrans1(String userid, String itemnum, String qty, String storeroom1, String binnum1, String lotnum1, String storeroom2, String binnum2, String lotnum2, String adress) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -253,7 +253,7 @@ public class AndroidClientService {
         soapReq.addProperty("binnum2", binnum2);//入货柜号
         soapReq.addProperty("lotnum2", lotnum2);//移入批次
         soapEnvelope.setOutputSoapObject(soapReq);
-        HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);
+        HttpTransportSE httpTransport = new HttpTransportSE(adress + url, timeOut);
         try {
             httpTransport.call("urn:action", soapEnvelope);
         } catch (IOException | XmlPullParserException e) {
@@ -305,7 +305,7 @@ public class AndroidClientService {
      * 生成物资编码
      */
     public String INV08CreateItem(String userid, String itemreqnum) {
-        Log.i(TAG,"userid="+userid+",itemreqnum="+itemreqnum);
+        Log.i(TAG, "userid=" + userid + ",itemreqnum=" + itemreqnum);
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
         soapEnvelope.dotNet = true;

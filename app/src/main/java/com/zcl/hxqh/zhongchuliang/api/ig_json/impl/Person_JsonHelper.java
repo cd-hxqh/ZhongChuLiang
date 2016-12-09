@@ -74,6 +74,9 @@ public final class Person_JsonHelper
         } else if ("DISPLAYNAME".equals(fieldName)) {
             instance.displayname = jp.getValueAsString();
             return true;
+        }else if ("PERSONID".equals(fieldName)) {
+            instance.personid = jp.getValueAsString();
+            return true;
         }
 
         return false;
