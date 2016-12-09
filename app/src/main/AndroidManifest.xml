@@ -3,6 +3,7 @@
     package="com.zcl.hxqh.zhongchuliang">
 
     <!--permission -->
+    <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -20,6 +21,7 @@
 
     <uses-permission android:name="android.permission.READ_LOGS" />
 
+    <uses-feature android:name="android.hardware.nfc"/>
 
     <application
         android:name=".BaseApplication"
@@ -78,6 +80,9 @@
             android:name=".view.activity.InvreserveDetailActivity"
             android:label="InvreserveDetailActivity"></activity>
         <activity
+            android:name=".view.activity.InvreserveAddNewActivity"
+            android:label="InvreserveDetailActivity"></activity>
+        <activity
             android:name=".view.activity.CInvbalancesActivity"
             android:label="CInvbalancesActivity"></activity>
         <activity
@@ -99,6 +104,9 @@
             android:name=".view.activity.MatrectransActivity"
             android:label="MatrectransActivity"></activity>
         <activity
+            android:name=".view.activity.AssetDetailActivity"
+            android:label="Results_Activity"></activity>
+        <activity
             android:name=".view.activity.BinChooseActivity"
             android:label="BinChooseActivity"></activity>
         <activity
@@ -112,6 +120,10 @@
             android:label="Results_searchActivity"></activity>
         <activity
             android:name=".view.activity.PermissionsActivity"
+            android:label="PermissionsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity
+            android:name=".view.activity.NFC_Activity"
             android:label="PermissionsActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 

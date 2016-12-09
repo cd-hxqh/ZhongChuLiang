@@ -10,6 +10,8 @@ import com.instagram.common.json.annotation.JsonType;
 @JsonType
 public class Invbalances extends Entity {
 
+    @JsonField(fieldName = "invbalancesid")
+    public String invbalancesid; //id
     @JsonField(fieldName = "binnum")
     public String binnum; //货柜
     @JsonField(fieldName = "itemnum")
@@ -32,6 +34,22 @@ public class Invbalances extends Entity {
     public String invtype; //库存类别
     @JsonField(fieldName = "unitcost")
     public String unitcost; //单位成本
+
+    public String getInvbalancesid() {
+        return invbalancesid;
+    }
+
+    public void setInvbalancesid(String invbalancesid) {
+        this.invbalancesid = invbalancesid;
+    }
+
+    public String getUnitcost() {
+        return unitcost;
+    }
+
+    public void setUnitcost(String unitcost) {
+        this.unitcost = unitcost;
+    }
 
     public String getInvtype() {
         return invtype;

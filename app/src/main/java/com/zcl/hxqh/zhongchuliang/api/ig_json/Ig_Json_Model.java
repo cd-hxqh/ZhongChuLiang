@@ -3,6 +3,7 @@
 package com.zcl.hxqh.zhongchuliang.api.ig_json;
 
 
+import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Asset_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Invbalances_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Inventory_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Invreserve_JsonHelper;
@@ -10,9 +11,11 @@ import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Locations_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Matrectrans_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.N_Invver_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.N_Invverline_JsonHelper;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Person_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Po_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.Poline_JsonHelper;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.impl.WorkOrder_JsonHelper;
+import com.zcl.hxqh.zhongchuliang.model.Asset;
 import com.zcl.hxqh.zhongchuliang.model.Invbalances;
 import com.zcl.hxqh.zhongchuliang.model.Inventory;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
@@ -20,6 +23,7 @@ import com.zcl.hxqh.zhongchuliang.model.Locations;
 import com.zcl.hxqh.zhongchuliang.model.Matrectrans;
 import com.zcl.hxqh.zhongchuliang.model.N_Invver;
 import com.zcl.hxqh.zhongchuliang.model.N_Invverline;
+import com.zcl.hxqh.zhongchuliang.model.Person;
 import com.zcl.hxqh.zhongchuliang.model.Po;
 import com.zcl.hxqh.zhongchuliang.model.Poline;
 import com.zcl.hxqh.zhongchuliang.model.WorkOrder;
@@ -82,6 +86,13 @@ public class Ig_Json_Model {
     }
 
     /**
+     * 库存盘点
+     */
+    public static ArrayList<Asset> parseAssetFromString(String input) throws IOException {
+        return Asset_JsonHelper.parseFromJsonList(input);
+    }
+
+    /**
      * 库存使用情况
      */
     public static ArrayList<Inventory> parseInventoryFromString(String input) throws IOException {
@@ -112,6 +123,12 @@ public class Ig_Json_Model {
         return Invbalances_JsonHelper.parseFromJsonList(input);
     }
 
+    /**
+     * 人员解析Person
+     */
+    public static ArrayList<Person> parsePersonFromString(String input) throws IOException {
+        return Person_JsonHelper.parseFromJsonList(input);
+    }
 
 
 }

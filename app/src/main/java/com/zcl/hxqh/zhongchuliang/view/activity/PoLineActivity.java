@@ -112,7 +112,7 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
         } else if (mark == 1001) {
             titleTextView.setText(R.string.po_return_text);
             type = Constants.RETURN;
-            inputall.setVisibility(View.GONE);
+//            inputall.setVisibility(View.GONE);
         }
         backImage.setVisibility(View.VISIBLE);
         backImage.setOnClickListener(new View.OnClickListener() {
@@ -196,41 +196,43 @@ public class PoLineActivity extends BaseActivity implements SwipeRefreshLayout.O
     private View.OnClickListener inputOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            showProgressBar(R.string.submit_process_ing);
             final ArrayList<Poline> items = polineAdapter.getChecked();
-            new AsyncTask<String, String, String>() {
-                @Override
-                protected String doInBackground(String... strings) {
-                    String result = null;
-                    for (Poline poline : items){
-                        String data = getBaseApplication().getWsService().INV02RecByPOLine(type, getBaseApplication().getUsername(),
-                                ponum, poline.polinenum, mark == 1000 ? Integer.parseInt(poline.orderqty) : -Integer.parseInt(poline.orderqty), AccountUtils.getIpAddress(PoLineActivity.this));
-                        if (data == null) {
-                            return "";
+            if (items != null && items.size() != 0) {
+                showProgressBar(R.string.submit_process_ing);
+                new AsyncTask<String, String, String>() {
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        String data = null;
+                        for (Poline poline : items) {
+                            data = getBaseApplication().getWsService().INV02RecByPOLine(type, getBaseApplication().getUsername(),
+                                    ponum, poline.polinenum, mark == 1000 ? Integer.parseInt(poline.orderqty) : -Integer.parseInt(poline.orderqty), AccountUtils.getIpAddress(PoLineActivity.this));
+                            if (data == null) {
+                                return "";
+                            }
                         }
-                }
-                    return result;
-                }
-
-                @Override
-                protected void onPostExecute(String o) {
-                    super.onPostExecute(o);
-                    if (o==null||o.equals("")) {
-                        MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
+                        return data;
                     }
-                    try {
-                        JSONObject jsonObject = new JSONObject(o);
-                        String result = jsonObject.getString("msg");
-                        MessageUtils.showMiddleToast(PoLineActivity.this, result);
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
+                    @Override
+                    protected void onPostExecute(String o) {
+                        super.onPostExecute(o);
+                        if (o == null || o.equals("")) {
+                            MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
+                        }
+                        try {
+                            JSONObject jsonObject = new JSONObject(o);
+                            String result = jsonObject.getString("msg");
+                            MessageUtils.showMiddleToast(PoLineActivity.this, result);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            MessageUtils.showMiddleToast(PoLineActivity.this, "操作失败");
+                            PoLineActivity.this.finish();
+                        }
                         PoLineActivity.this.finish();
                     }
-                    PoLineActivity.this.finish();
-                }
-            }.execute();
+                }.execute();
+            }
         }
     };
 

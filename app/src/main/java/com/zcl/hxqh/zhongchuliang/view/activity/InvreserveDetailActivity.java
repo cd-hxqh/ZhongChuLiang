@@ -13,13 +13,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zcl.hxqh.zhongchuliang.R;
+import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
+import com.zcl.hxqh.zhongchuliang.api.ImManager;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
+import com.zcl.hxqh.zhongchuliang.bean.Results;
 import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.model.Invreserve;
+import com.zcl.hxqh.zhongchuliang.model.Person;
 import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * 出库
@@ -45,6 +53,9 @@ public class InvreserveDetailActivity extends BaseActivity {
     private TextView reservedqty;//已预留数量
     private TextView restype; //预留类型
     private EditText binnum; //货柜
+    private EditText issueto;//发放到
+    private TextView cardnum;//卡号
+    private TextView usrby;//使用人
 
     private Button input;//提交
 
@@ -79,6 +90,9 @@ public class InvreserveDetailActivity extends BaseActivity {
         reservedqty = (TextView) findViewById(R.id.invreserve_reservedqty);
         restype = (TextView) findViewById(R.id.invreserve_restype);
         binnum = (EditText) findViewById(R.id.invreserve_binnum);
+        issueto = (EditText) findViewById(R.id.invreserve_issueto);
+        cardnum = (TextView) findViewById(R.id.invreserve_cardnum);
+        usrby = (TextView) findViewById(R.id.invreserve_usrby);
 
         input = (Button) findViewById(R.id.input_button_id);
     }
@@ -97,6 +111,9 @@ public class InvreserveDetailActivity extends BaseActivity {
         description.setText(invreserve.description);
         reservedqty.setText(invreserve.reservedqty);
         restype.setText(invreserve.restype);
+        issueto.setText(invreserve.issueto);
+
+        cardnum.setOnClickListener(cardnumOnClickListener);
 
         input.setOnClickListener(inputOnClickListener);
     }
@@ -108,20 +125,27 @@ public class InvreserveDetailActivity extends BaseActivity {
         }
     };
 
+    private View.OnClickListener cardnumOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(InvreserveDetailActivity.this,NFC_Activity.class);
+            startActivityForResult(intent,1);
+        }
+    };
+
     private View.OnClickListener inputOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             if (isOK()) {
                 showProgressBar(R.string.submit_process_ing);
                 final String num = binnum.getText().toString();
+                final String issueto2 = issueto.getText().toString();
                 new AsyncTask<String, String, String>() {
                     @Override
                     protected String doInBackground(String... strings) {
-
-
                         String data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveDetailActivity.this), wonum,
-                                invreserve.itemnum, invreserve.reservedqty, invreserve.location, "", AccountUtils.getIpAddress(InvreserveDetailActivity.this));
-                        Log.i(TAG, "data=" + data);
+                                invreserve.itemnum, invreserve.reservedqty, invreserve.location, num,issueto2, AccountUtils.getIpAddress(InvreserveDetailActivity.this));
+//                        Log.i(TAG, "data=" + data);
                         if (data == null) {
                             return "";
                         }
@@ -154,11 +178,61 @@ public class InvreserveDetailActivity extends BaseActivity {
     };
 
     private boolean isOK() {
-        if (binnum == null || binnum.getText().equals("")) {
-            Toast.makeText(InvreserveDetailActivity.this, "请完善信息", Toast.LENGTH_SHORT).show();
+        if (binnum == null || binnum.getText().toString().equals("")) {
+            Toast.makeText(InvreserveDetailActivity.this, "请填写货柜", Toast.LENGTH_SHORT).show();
+            return false;
+        }else if (issueto == null || issueto.getText().toString().equals("")){
+            Toast.makeText(InvreserveDetailActivity.this, "请填写发放到", Toast.LENGTH_SHORT).show();
             return false;
         }else {
             return true;
+        }
+    }
+
+    /**
+     * 获取库存项目信息*
+     */
+
+    private void getPerson(String cardnum) {
+        ImManager.getDataPagingInfo(this, ImManager.setPersonUrl(cardnum), new HttpRequestHandler<Results>() {
+            @Override
+            public void onSuccess(Results results) {
+//                Log.i(TAG, "data=" + results);
+            }
+
+            @Override
+            public void onSuccess(Results results, int totalPages, int currentPage) {
+                ArrayList<Person> items = new ArrayList<Person>();
+                try {
+                    items = Ig_Json_Model.parsePersonFromString(results.getResultlist());
+                    if (items.size()==0){
+                        Toast.makeText(InvreserveDetailActivity.this, "未查询到此人", Toast.LENGTH_SHORT).show();
+                    }else if(items.size()==1){
+                        usrby.setText(items.get(0).displayname);
+                    }else {
+                        Toast.makeText(InvreserveDetailActivity.this, "查询错误", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                Toast.makeText(InvreserveDetailActivity.this, "查询失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data != null) {
+            switch (requestCode) {
+                case 1:
+                    cardnum.setText(data.getStringExtra("cardnum"));
+                    getPerson(data.getStringExtra("cardnum"));
+                    break;
+            }
         }
     }
 }

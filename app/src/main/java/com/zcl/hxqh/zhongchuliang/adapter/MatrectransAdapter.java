@@ -71,11 +71,11 @@ public class MatrectransAdapter extends RecyclerView.Adapter<MatrectransAdapter.
     public void update(ArrayList<Matrectrans> data, boolean merge) {
         if (merge && mItems.size() > 0) {
             for (int i = 0; i < mItems.size(); i++) {
-                Log.i(TAG, "mItems=" + mItems.get(i).itemnum);
+                Log.i(TAG, "mItems=" + mItems.get(i).Matrectransid);
                 Matrectrans obj = mItems.get(i);
                 boolean exist = false;
                 for (int j = 0; j < data.size(); j++) {
-                    if (data.get(j).itemnum == obj.itemnum) {
+                    if (data.get(j).Matrectransid == obj.Matrectransid) {
                         exist = true;
                         break;
                     }
@@ -91,7 +91,7 @@ public class MatrectransAdapter extends RecyclerView.Adapter<MatrectransAdapter.
 
     public void update(Matrectrans matrectrans) {
         for (int i = 0; i < mItems.size(); i++) {
-            if (mItems.get(i).itemnum.equals(matrectrans.itemnum)) {
+            if (mItems.get(i).Matrectransid.equals(matrectrans.Matrectransid)) {
                 mItems.set(i, matrectrans);
             }
         }
@@ -103,7 +103,7 @@ public class MatrectransAdapter extends RecyclerView.Adapter<MatrectransAdapter.
             for (int i = 0; i < data.size(); i++) {
                 if (mItems.size() > 0) {
                     for (int j = 0; j < mItems.size(); j++) {
-                        if (mItems.get(j).itemnum.equals(data.get(i).itemnum)) {
+                        if (mItems.get(j).Matrectransid.equals(data.get(i).Matrectransid)) {
                             mItems.remove(j);
                         }
                     }
@@ -114,9 +114,9 @@ public class MatrectransAdapter extends RecyclerView.Adapter<MatrectransAdapter.
         notifyDataSetChanged();
     }
 
-    public void remove(String itemnum) {
+    public void remove(Matrectrans Matrectrans) {
         for (int i = 0; i < mItems.size(); i++) {
-            if (mItems.get(i).itemnum.equals(itemnum)) {
+            if (mItems.get(i).Matrectransid.equals(Matrectrans.Matrectransid)) {
                 mItems.remove(i);
             }
         }

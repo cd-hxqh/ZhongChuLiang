@@ -222,6 +222,7 @@ public class InvbalancesListActivity extends BaseActivity implements SwipeRefres
                 Map.Entry entry = (Map.Entry) iter.next();
                 Invbalances invbalances = (Invbalances) entry.getValue();
                 matrectrans = new Matrectrans();
+                matrectrans.setMatrectransid(invbalances.invbalancesid);
                 matrectrans.setItemnum(invbalances.itemnum); //项目
                 matrectrans.setDescription(invbalances.itemdesc); //描述
                 matrectrans.setType(invbalances.itemin20); //型号

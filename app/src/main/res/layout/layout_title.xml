@@ -31,6 +31,16 @@
         android:visibility="gone"
         android:src="@drawable/ic_search" />
 
+    <ImageView
+        android:id="@+id/qr_right"
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="5dp"
+        android:visibility="gone"
+        android:background="@drawable/abc_ic_capture"/>
+
 
     <Button
         android:id="@+id/btn_transfer_btn"

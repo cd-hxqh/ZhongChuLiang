@@ -1,6 +1,8 @@
 package com.zcl.hxqh.zhongchuliang.view.activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
@@ -21,6 +23,7 @@ import com.zcl.hxqh.zhongchuliang.constants.Constants;
 import com.zcl.hxqh.zhongchuliang.dialog.FlippingLoadingDialog;
 import com.zcl.hxqh.zhongchuliang.until.AccountUtils;
 import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
+import com.zcl.hxqh.zhongchuliang.until.PermissionsChecker;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "LoginActivity";
@@ -51,7 +54,19 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     protected FlippingLoadingDialog mLoadingDialog;
 
+    private static final int REQUEST_CODE = 0; // 请求码
 
+    // 所需的全部权限
+    static final String[] PERMISSIONS = new String[]{
+            Manifest.permission.CAMERA,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.NFC
+    };
+
+//    @Bind(R.id.main_t_toolbar) Toolbar mTToolbar;
+
+    private PermissionsChecker mPermissionsChecker; // 权限检测器
 
 
     @Override
@@ -61,17 +76,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
         Bugly.init(getApplicationContext(), "a8d607bea9", true);
 
-        imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
-                .getDeviceId();
-
         if (AccountUtils.getIpAddress(LoginActivity.this).equals("")) {
             AccountUtils.setIpAddress(LoginActivity.this, Constants.HTTP_API_IP);
         }
+
+        mPermissionsChecker = new PermissionsChecker(this);
         findViewById();
         initView();
         setEvent();
 
 
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+
+        // 缺少权限时, 进入权限配置页面
+        if (mPermissionsChecker.lacksPermissions(PERMISSIONS)&& Build.VERSION.SDK_INT >= 23) {
+            startPermissionsActivity();
+        }
+        imei = ((TelephonyManager) getSystemService(TELEPHONY_SERVICE))
+                .getDeviceId();
+    }
+
+    private void startPermissionsActivity() {
+        PermissionsActivity.startActivityForResult(this, REQUEST_CODE, PERMISSIONS);
     }
 
 

@@ -33,7 +33,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
     public TransferFragment transferfragment;
     private ImageView[] imagebuttons;
     private TextView[] textviews;
-    private ImageView qr_img;
+//    private ImageView qr_img;
 
     /**
      * 搜索按钮*
@@ -81,6 +81,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 .add(R.id.fragment_container, transferfragment)
                 .hide(outfragment).hide(checkfragment)
                 .hide(transferfragment).show(infragment).commit();
+
+//        qr_img.setOnClickListener(qrOnClickListener);
     }
 
     public void onTabClicked(View view) {
@@ -123,6 +125,14 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         currentTabIndex = index;
     }
 
+//    private OnClickListener qrOnClickListener = new OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//            Intent intent = new Intent(MainActivity.this, MipcaActivityCapture.class);
+//            intent.putExtra("mark",100);
+//            startActivityForResult(intent, 0);
+//        }
+//    };
 
     @Override
     protected void onResume() {
@@ -149,6 +159,8 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         @Override
         public void onClick(View v) {
             setSearchButton(currentTabIndex);
+//            Intent intent = new Intent(MainActivity.this,NFC_Activity.class);
+//            startActivityForResult(intent,1);//2436
         }
     };
 

@@ -1,34 +1,37 @@
 package com.zcl.hxqh.zhongchuliang.api.ig_json.impl;
 
+import android.util.Log;
+
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.instagram.common.json.JsonFactoryHolder;
 import com.zcl.hxqh.zhongchuliang.api.ig_json.JsonHelper;
-import com.zcl.hxqh.zhongchuliang.model.Invreserve;
+import com.zcl.hxqh.zhongchuliang.model.Asset;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Invreserve解析*
+ * Asset*
  */
-public final class Invreserve_JsonHelper
-        implements JsonHelper<Invreserve> {
-    private static final String TAG = "Invreserve";
+public final class Asset_JsonHelper
+        implements JsonHelper<Asset> {
+    private static final String TAG = "Asset_JsonHelper";
 
     /**
      * 解析List*
      */
-    public static ArrayList<Invreserve> parseFromJsonList(JsonParser jp)
+    public static ArrayList<Asset> parseFromJsonList(JsonParser jp)
             throws IOException {
 
-        ArrayList<Invreserve> results = null;
+        ArrayList<Asset> results = null;
 
         // validate that we're on the right token
         if (jp.getCurrentToken() == JsonToken.START_ARRAY) {
-            results = new ArrayList<Invreserve>();
+            results = new ArrayList<Asset>();
             while (jp.nextToken() != JsonToken.END_ARRAY) {
-                Invreserve parsed = parseFromJson(jp);
+                Asset parsed = parseFromJson(jp);
+                Log.i(TAG, "parsed=" + parsed);
                 if (parsed != null) {
                     results.add(parsed);
                 }
@@ -41,11 +44,11 @@ public final class Invreserve_JsonHelper
 
 
     /**
-     * 解析Invreserve
+     * 解析Inventory
      */
-    public static Invreserve parseFromJson(JsonParser jp)
+    public static Asset parseFromJson(JsonParser jp)
             throws IOException {
-        Invreserve instance = new Invreserve();
+        Asset instance = new Asset();
 
         // validate that we're on the right token
         if (jp.getCurrentToken() != JsonToken.START_OBJECT) {
@@ -63,30 +66,27 @@ public final class Invreserve_JsonHelper
         return instance;
     }
 
-    public static boolean processSingleField(Invreserve instance, String fieldName, JsonParser jp)
+    public static boolean processSingleField(Asset instance, String fieldName, JsonParser jp)
             throws IOException {
-        if ("WONUM".equals(fieldName)) {
-            instance.wonum = jp.getValueAsString();
+        if ("ASSETNUM".equals(fieldName)) {
+            instance.assetnum = jp.getValueAsString();
             return true;
-        } else if ("REQUESTNUM".equals(fieldName)) {
-            instance.requestnum = jp.getValueAsString();
-            return true;
-        } else if ("ITEMNUM".equals(fieldName)) {
-            instance.itemnum = jp.getValueAsString();
-        } else if ("LOCATION".equals(fieldName)) {
-            instance.location = jp.getValueAsString();
-            return true;
-        }else if ("DESCRIPTION".equals(fieldName)) {
+        } else if ("DESCRIPTION".equals(fieldName)) {
             instance.description = jp.getValueAsString();
             return true;
-        }else if ("RESERVEDQTY".equals(fieldName)) {
-            instance.reservedqty = jp.getValueAsString();
+        } else if ("N_LOCANAME".equals(fieldName)) {
+            instance.n_locaname = jp.getValueAsString();
+        } else if ("N_MODELNUM".equals(fieldName)) {
+            instance.n_modelnum = jp.getValueAsString();
             return true;
-        }else if ("RESTYPE".equals(fieldName)) {
-            instance.restype = jp.getValueAsString();
+        } else if ("ASSETTYPE".equals(fieldName)) {
+            instance.assettype = jp.getValueAsString();
             return true;
-        }else if ("ISSUETO".equals(fieldName)) {
-            instance.issueto = jp.getValueAsString();
+        } else if ("PARENT".equals(fieldName)) {
+            instance.parent = jp.getValueAsString();
+            return true;
+        }else if ("STATUS".equals(fieldName)) {
+            instance.status = jp.getValueAsString();
             return true;
         }
 
@@ -94,9 +94,9 @@ public final class Invreserve_JsonHelper
     }
 
     /**
-     * 解析Invreserve
+     * 解析Item*
      */
-    public static ArrayList<Invreserve> parseFromJsonList(String inputString)
+    public static ArrayList<Asset> parseFromJsonList(String inputString)
             throws IOException {
         JsonParser jp = JsonFactoryHolder.APP_FACTORY.createParser(inputString);
         jp.nextToken();
@@ -104,9 +104,9 @@ public final class Invreserve_JsonHelper
     }
 
     /**
-     * 解析Invreserve
+     * 解析Item*
      */
-    public static Invreserve parseFromJson(String inputString)
+    public static Asset parseFromJson(String inputString)
             throws IOException {
         JsonParser jp = JsonFactoryHolder.APP_FACTORY.createParser(inputString);
         jp.nextToken();

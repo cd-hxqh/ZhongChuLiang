@@ -141,7 +141,7 @@ public class AndroidClientService {
     /**
      * 库存出库
      */
-    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom,String binnum,String adress) {
+    public String INV03Issue(String userid, String wonum, String itemnum, String qty, String storeroom,String binnum,String issueto,String adress) {
 
         SoapSerializationEnvelope soapEnvelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         soapEnvelope.implicitTypes = true;
@@ -153,6 +153,7 @@ public class AndroidClientService {
         soapReq.addProperty("qty", qty);//数量
         soapReq.addProperty("storeroom", storeroom);//库房
         soapReq.addProperty("binnum", binnum);//货柜
+        soapReq.addProperty("ISSUETO", issueto);//发放到
 //        soapReq.addProperty("lotnum", lotnum);//批次
         soapEnvelope.setOutputSoapObject(soapReq);
         HttpTransportSE httpTransport = new HttpTransportSE(adress+url, timeOut);

@@ -21,12 +21,21 @@ import android.widget.Toast;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.zcl.hxqh.zhongchuliang.R;
+import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
+import com.zcl.hxqh.zhongchuliang.api.ImManager;
+import com.zcl.hxqh.zhongchuliang.api.ig_json.Ig_Json_Model;
+import com.zcl.hxqh.zhongchuliang.bean.Results;
+import com.zcl.hxqh.zhongchuliang.model.Asset;
+import com.zcl.hxqh.zhongchuliang.model.Invreserve;
+import com.zcl.hxqh.zhongchuliang.model.N_Invverline;
+import com.zcl.hxqh.zhongchuliang.until.MessageUtils;
 import com.zcl.hxqh.zhongchuliang.zxing.camera.CameraManager;
 import com.zcl.hxqh.zhongchuliang.zxing.decoding.CaptureActivityHandler;
 import com.zcl.hxqh.zhongchuliang.zxing.decoding.InactivityTimer;
 import com.zcl.hxqh.zhongchuliang.zxing.view.ViewfinderView;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -134,10 +143,18 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
 //            resultIntent.setClass(MipcaActivityCapture.this, Results_Activity.class);
 //            this.setResult(RESULT_OK, resultIntent);
 //            startActivityForResult(resultIntent,RESULT_OK);
-            Intent intent = getIntent();
-            intent.putExtra("result", resultString);
-            MipcaActivityCapture.this.setResult(mark, intent);
-            finish();
+            if (getIntent().getIntExtra("mark",0)!=100&&getIntent().getIntExtra("mark",0)!=-1&&getIntent().getIntExtra("mark",0)!=-2) {
+                Intent intent = getIntent();
+                intent.putExtra("result", resultString);
+                MipcaActivityCapture.this.setResult(mark, intent);
+//                finish();
+            }else if (getIntent().getIntExtra("mark",0)==-1){//库存盘点
+                getN_Invverline(getIntent().getStringExtra("invvernum"),resultString);
+            }else if (getIntent().getIntExtra("mark",0)==-2){//出库
+                getInvreserve(getIntent().getStringExtra("wonum"), resultString);
+            }else {
+                getAsset(resultString);
+            }
         }
         MipcaActivityCapture.this.finish();
     }
@@ -234,5 +251,144 @@ public class MipcaActivityCapture extends BaseActivity implements Callback {
             mediaPlayer.seekTo(0);
         }
     };
+
+    /**
+     * 获取设备信息*
+     */
+
+    private void getAsset(String assetnum) {
+        ImManager.getData(MipcaActivityCapture.this, ImManager.setAssetUrl(assetnum), new HttpRequestHandler<Results>() {
+            @Override
+            public void onSuccess(Results results) {
+//                Log.i(TAG, "data=" + results);
+            }
+
+            @Override
+            public void onSuccess(Results results, int totalPages, int currentPage) {
+                ArrayList<Asset> items = new ArrayList<Asset>();
+                try {
+                    if (results!=null&&results.getResultlist()!=null) {
+                        items = Ig_Json_Model.parseAssetFromString(results.getResultlist());
+                        if (items!=null&&items.size()==1){
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("asset",items.get(0));
+                            resultIntent.setClass(MipcaActivityCapture.this, AssetDetailActivity.class);
+                            startActivityForResult(resultIntent, RESULT_OK);
+                            finish();
+                        }else {
+                            MessageUtils.showMiddleToast(MipcaActivityCapture.this, "未查询到设备信息");
+                        }
+                    }else {
+                        MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+            }
+        });
+    }
+
+    /**
+     * 获取库存盘点行信息*
+     */
+
+    private void getN_Invverline(String invvernum,String itemnum) {
+        ImManager.getData(MipcaActivityCapture.this, ImManager.setN_InvverlineUrl(invvernum, itemnum), new HttpRequestHandler<Results>() {
+            @Override
+            public void onSuccess(Results results) {
+//                Log.i(TAG, "data=" + results);
+            }
+
+            @Override
+            public void onSuccess(Results results, int totalPages, int currentPage) {
+                ArrayList<N_Invverline> items = new ArrayList<N_Invverline>();
+                try {
+                    if (results!=null&&results.getResultlist()!=null) {
+                        items = Ig_Json_Model.parseN_InvverlineFromString(results.getResultlist());
+                        if (items!=null&&items.size()==1){
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("N_Invverline",items.get(0));
+                            resultIntent.setClass(MipcaActivityCapture.this, N_InvverlineDetailActivity.class);
+                            startActivityForResult(resultIntent, RESULT_OK);
+                            finish();
+                        }else {
+                            MessageUtils.showMiddleToast(MipcaActivityCapture.this, "未查询到设备信息");
+                        }
+                    }else {
+                        MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+            }
+        });
+    }
+
+    /**
+     * 获取预留项目信息*
+     */
+
+    private void getInvreserve(final String wonum, final String itemnum) {
+        ImManager.getData(MipcaActivityCapture.this, ImManager.setInvreserveUrl(wonum, itemnum), new HttpRequestHandler<Results>() {
+            @Override
+            public void onSuccess(Results results) {
+//                Log.i(TAG, "data=" + results);
+            }
+
+            @Override
+            public void onSuccess(Results results, int totalPages, int currentPage) {
+                ArrayList<Invreserve> items = new ArrayList<Invreserve>();
+                try {
+                    if (results!=null&&results.getResultlist()!=null) {
+                        items = Ig_Json_Model.parseInvreserveFromString(results.getResultlist());
+                        if (items!=null&&items.size()==1){
+                            Intent resultIntent = new Intent();
+                            resultIntent.putExtra("invreserve",items.get(0));
+                            resultIntent.putExtra("wonum",wonum);
+                            resultIntent.setClass(MipcaActivityCapture.this, InvreserveDetailActivity.class);
+                            startActivityForResult(resultIntent, RESULT_OK);
+                            finish();
+                        }else {
+                            MessageUtils.showMiddleToast(MipcaActivityCapture.this, "未查询到预留项目信息");
+                            finish();
+//                            addInvreserve(wonum,itemnum);
+                        }
+                    }else {
+                        MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+                        finish();
+//                        addInvreserve(wonum,itemnum);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(String error) {
+                MessageUtils.showMiddleToast(MipcaActivityCapture.this, "数据获取失败");
+                finish();
+            }
+        });
+    }
+
+    //新增入库预留项目
+    private void addInvreserve(String wonum,String itemnum){
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("itemnum",itemnum);
+        resultIntent.putExtra("wonum",wonum);
+        resultIntent.setClass(MipcaActivityCapture.this, InvreserveAddNewActivity.class);
+        startActivityForResult(resultIntent, RESULT_OK);
+        finish();
+    }
 
 }

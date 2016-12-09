@@ -36,7 +36,7 @@ public class Po extends Entity {
     public String receipts; //接收
     @JsonField(fieldName = "orderdate")
     public String orderdate; //订购日期
-    @JsonField(fieldName = "purchaseagent")
+    @JsonField(fieldName = "PURCHASEAGENT")
     public String purchaseagent; //
 
 

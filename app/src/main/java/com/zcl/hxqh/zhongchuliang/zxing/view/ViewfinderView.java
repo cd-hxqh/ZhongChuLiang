@@ -201,7 +201,7 @@ public final class ViewfinderView extends View {
             paint.setAlpha(0x40);
             paint.setTypeface(Typeface.create("System", Typeface.BOLD));
             Log.i(TAG, "frame.left=" + frame.left);
-            canvas.drawText(getResources().getString(R.string.scan_text), frame.left+20, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
+            canvas.drawText(getResources().getString(R.string.scan_text), frame.left-85, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
 
 
 

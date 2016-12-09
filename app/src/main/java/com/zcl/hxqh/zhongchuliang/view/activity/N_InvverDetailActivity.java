@@ -64,6 +64,8 @@ public class N_InvverDetailActivity extends BaseActivity {
 
     private TextView reportdate;//创建时间
 
+    private ImageView qrView;//扫描二维码
+
 //    private Button recordeBtn;//接收按钮
 //
 //    private Button returnBtn;//返回按钮
@@ -116,6 +118,7 @@ public class N_InvverDetailActivity extends BaseActivity {
     private void initView() {
         titleText = (TextView) findViewById(R.id.txt_title);
         backImageView = (ImageView) findViewById(R.id.img_back);
+        qrView = (ImageView) findViewById(R.id.qr_right);
         invvernum = (TextView) findViewById(R.id.n_invver_invvernum);
         description = (TextView) findViewById(R.id.n_invver_description);
         location = (TextView) findViewById(R.id.n_invver_location);
@@ -143,6 +146,8 @@ public class N_InvverDetailActivity extends BaseActivity {
         titleText.setText(getString(R.string.material_receiving));
         backImageView.setVisibility(View.VISIBLE);
         backImageView.setOnClickListener(backImageViewOnClickListener);
+        qrView.setVisibility(View.VISIBLE);
+        qrView.setOnClickListener(qrOnClickListener);
         scrollView.smoothScrollTo(0, 0);
         mLayoutManager = new LinearLayoutManager(this);
         listView.setLayoutManager(mLayoutManager);
@@ -199,6 +204,16 @@ public class N_InvverDetailActivity extends BaseActivity {
 //            startActivity(intent);
 //        }
 //    };
+
+    private View.OnClickListener qrOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(N_InvverDetailActivity.this, MipcaActivityCapture.class);
+            intent.putExtra("mark",-1);
+            intent.putExtra("invvernum",n_invver.invvernum);
+            startActivityForResult(intent, 0);
+        }
+    };
 
     /**
      * 获取入库管理*

@@ -122,6 +122,14 @@ public class Constants {
     //INVBALANCES的表名
     public static final String INVBALANCES_NAME = "INVBALANCES";
 
+    /**
+     * 设备*
+     */
+    //ASSET的appid
+    public static final String ASSET_APPID = "ASSET";
+    //ASSET的表名
+    public static final String ASSET_NAME = "ASSET";
+
 
     /**
      * 用户登录表识--开始*
@@ -140,4 +148,10 @@ public class Constants {
      */
     public static final String RECEIPT = "RECEIPT";//接收
     public static final String RETURN = "RETURN";//退货
+
+    /**
+     * 人员表
+     */
+    public static final String PERSON_APPID = "N_TNWO";
+    public static final String PERSON_NAME = "PERSON";
 }

@@ -1,5 +1,6 @@
 package com.zcl.hxqh.zhongchuliang.view.activity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zcl.hxqh.zhongchuliang.R;
 import com.zcl.hxqh.zhongchuliang.adapter.InvreserveAdapter;
@@ -39,6 +41,8 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
     private TextView titleTextView; // 标题
 
     private ImageView backImage; //返回
+
+    private ImageView qrView;//扫描二维码
 
     RecyclerView mRecyclerView;
 
@@ -94,7 +98,7 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
     private void findViewById() {
         titleTextView = (TextView) findViewById(R.id.txt_title);
         backImage = (ImageView) findViewById(R.id.img_back);
-
+        qrView = (ImageView) findViewById(R.id.qr_right);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.list_topics);
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -104,7 +108,10 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
     }
 
     private void initView() {
+        titleTextView.setText(R.string.invreserve_list_title);
         backImage.setVisibility(View.VISIBLE);
+        qrView.setVisibility(View.VISIBLE);
+        qrView.setOnClickListener(qrOnClickListener);
         backImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +139,16 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
         getPoLineList();
     }
 
+    private View.OnClickListener qrOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent = new Intent(InvreserveListActivity.this, MipcaActivityCapture.class);
+            intent.putExtra("mark",-2);
+            intent.putExtra("wonum",wonum);
+            startActivityForResult(intent, 0);
+        }
+    };
+
     /**
      * 获取库存项目信息*
      */
@@ -149,6 +166,7 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
                 try {
                     items = Ig_Json_Model.parseInvreserveFromString(results.getResultlist());
                     if (items == null || items.isEmpty()) {
+                        notLinearLayout.setVisibility(View.VISIBLE);
                     } else {
                         invreserveAdapter.adddate(items);
 //                        if (page == 1) {
@@ -172,6 +190,7 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
                 mSwipeLayout.setLoading(false);
                 if (invreserveAdapter.getItemCount() != 0) {
                     MessageUtils.showMiddleToast(InvreserveListActivity.this, getString(R.string.loading_data_fail));
+                    notLinearLayout.setVisibility(View.VISIBLE);
                 } else {
                     notLinearLayout.setVisibility(View.VISIBLE);
                 }
@@ -184,43 +203,64 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
         public void onClick(View v) {
             showProgressBar(R.string.submit_process_ing);
             final ArrayList<Invreserve> items = invreserveAdapter.getChecked();
-            if (items != null && items.size() != 0) {
-                new AsyncTask<String, String, String>() {
-                    @Override
-                    protected String doInBackground(String... strings) {
-                        String data = null;
-                        for (Invreserve invreserve : items) {
-                            data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveListActivity.this), wonum,
-                                    invreserve.itemnum, invreserve.reservedqty, invreserve.location,"", AccountUtils.getIpAddress(InvreserveListActivity.this));
-                            if (data == null) {
-                                return "";
+            if (isOK(items)) {
+                if (items != null && items.size() != 0) {
+                    new AsyncTask<String, String, String>() {
+                        @Override
+                        protected String doInBackground(String... strings) {
+                            String data = null;
+                            for (Invreserve invreserve : items) {
+                                data = getBaseApplication().getWsService().INV03Issue(AccountUtils.getUserName(InvreserveListActivity.this), wonum,
+                                        invreserve.itemnum, invreserve.reservedqty, invreserve.location, "",invreserve.issueto, AccountUtils.getIpAddress(InvreserveListActivity.this));
+                                if (data == null) {
+                                    return "";
+                                }
                             }
+                            return data;
                         }
-                        return data;
-                    }
 
-                    @Override
-                    protected void onPostExecute(String o) {
-                        super.onPostExecute(o);
-                        if (o == null || o.equals("")) {
-                            MessageUtils.showMiddleToast(InvreserveListActivity.this, "操作失败");
-                        }
-                        try {
-                            JSONObject jsonObject = new JSONObject(o);
-                            String result = jsonObject.getString("msg");
-                            MessageUtils.showMiddleToast(InvreserveListActivity.this, result);
+                        @Override
+                        protected void onPostExecute(String o) {
+                            super.onPostExecute(o);
+                            if (o == null || o.equals("")) {
+                                MessageUtils.showMiddleToast(InvreserveListActivity.this, "操作失败");
+                            }
+                            try {
+                                JSONObject jsonObject = new JSONObject(o);
+                                String result = jsonObject.getString("msg");
+                                MessageUtils.showMiddleToast(InvreserveListActivity.this, result);
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            MessageUtils.showMiddleToast(InvreserveListActivity.this, "操作失败");
-                            InvreserveListActivity.this.finish();
-                        }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                MessageUtils.showMiddleToast(InvreserveListActivity.this, "操作失败");
+                                InvreserveListActivity.this.finish();
+                            }
 //                        InvreserveListActivity.this.finish();
-                    }
-                }.execute();
+                        }
+                    }.execute();
+                }
             }
+            colseProgressBar();
         }
     };
+
+    private boolean isOK(ArrayList<Invreserve> list) {
+        if (list.size() > 0) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).issueto == null || list.get(i).issueto.equals("")
+//                        || list.get(i).fromstoreloc == null || list.get(i).fromstoreloc.equals("")
+//                        || list.get(i).frombin == null || list.get(i).frombin.equals("")
+//                        || list.get(i).tostoreloc == null || list.get(i).tostoreloc.equals("")
+//                        || list.get(i).tobin == null || list.get(i).tobin.equals("")
+                        ) {
+                    Toast.makeText(InvreserveListActivity.this, list.get(i).itemnum + "信息未完善", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public void onLoad() {
@@ -231,6 +271,8 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
     @Override
     public void onRefresh() {
         page = 1;
+        invreserveAdapter = new InvreserveAdapter(this);
+        mRecyclerView.setAdapter(invreserveAdapter);
         getPoLineList();
         mSwipeLayout.setRefreshing(false);
     }

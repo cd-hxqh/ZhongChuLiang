@@ -44,7 +44,13 @@ public class ImManager {
         } else {
             return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.INVRESERVE_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'WONUM':'" + wonum + "','ITEMNUM':'" + search + "'}}";
         }
+    }
 
+    /**
+     * 出库管理扫描查询
+     **/
+    public static String setInvreserveUrl(String wonum, String itemnum) {
+        return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.INVRESERVE_NAME + "','option':'read','condition':{'WONUM':'" + wonum + "','ITEMNUM':'" + itemnum + "'}}";
     }
 
     /**
@@ -64,6 +70,27 @@ public class ImManager {
      */
     public static String setN_InvverlineUrl(String invvernum) {
         return "{'appid':'" + Constants.N_INVVERLINE_APPID + "','objectname':'" + Constants.N_INVVERLINE_NAME + "','option':'read','condition':{'INVVERNUM':'"+invvernum+"'}}";
+    }
+
+    /**
+     * 设置查询物料接收*
+     */
+    public static String setN_InvverlineUrl(String invvernum,String itemnum) {
+        return "{'appid':'" + Constants.N_INVVERLINE_APPID + "','objectname':'" + Constants.N_INVVERLINE_NAME + "','option':'read','condition':{'INVVERNUM':'"+invvernum+"','ITEMNUM':'"+itemnum+"'}}";
+    }
+
+    /**
+     * 设置物料接收*
+     */
+    public static String setAssetUrl(String asset) {
+        return "{'appid':'" + Constants.ASSET_APPID + "','objectname':'" + Constants.ASSET_NAME + "','option':'read','condition':{'assetnum':'="+asset+"'}}";
+    }
+
+    /**
+     * 设置根据卡号查询人员地址*
+     */
+    public static String setPersonUrl(String cardnum) {
+        return "{'appid':'" + Constants.PERSON_APPID + "','objectname':'" + Constants.PERSON_NAME + "','option':'read','condition':{'N_CARDNUM':'="+cardnum+"'}}";
     }
 
 

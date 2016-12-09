@@ -50,6 +50,8 @@ public class InvbalancesActivity extends BaseActivity {
 
     public int mark; //移出，移入
 
+    ArrayList<Matrectrans> matrectranses;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -128,19 +130,20 @@ public class InvbalancesActivity extends BaseActivity {
     private View.OnClickListener confirmOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            final ArrayList<Matrectrans> matrectranses = matrectransAdapter.mItems;
+            matrectranses = matrectransAdapter.mItems;
             if (isOK(matrectranses)) {
                 showProgressBar(R.string.submit_process_ing);
                 for (int i = 0; i < matrectranses.size(); i++) {
                     final int finalI = i;
+                    final Matrectrans finalMatrectrans = matrectranses.get(finalI);;
                     new AsyncTask<String, String, String>() {
                         @Override
                         protected String doInBackground(String... strings) {
                             String result = null;
                             String data = getBaseApplication().getWsService().INV05Invtrans1(getBaseApplication().getUsername(),
-                                    matrectranses.get(finalI).itemnum, matrectranses.get(finalI).receiptquantity,
-                                    matrectranses.get(finalI).fromstoreloc, matrectranses.get(finalI).frombin, matrectranses.get(finalI).fromlot, matrectranses.get(finalI).tostoreloc,
-                                    matrectranses.get(finalI).tobin, matrectranses.get(finalI).tolot, AccountUtils.getIpAddress(InvbalancesActivity.this));
+                                    finalMatrectrans.itemnum, finalMatrectrans.receiptquantity,
+                                    finalMatrectrans.fromstoreloc, finalMatrectrans.frombin, finalMatrectrans.fromlot, finalMatrectrans.tostoreloc,
+                                    finalMatrectrans.tobin, finalMatrectrans.tolot, AccountUtils.getIpAddress(InvbalancesActivity.this));
 
                             Log.i(TAG,"data="+data);
                             try {
@@ -157,18 +160,19 @@ public class InvbalancesActivity extends BaseActivity {
                             super.onPostExecute(o);
                             if (o.equals("操作成功！")) {
                                 Toast.makeText(InvbalancesActivity.this, o, Toast.LENGTH_SHORT).show();
-                                matrectransAdapter.remove(matrectranses.get(finalI).itemnum);
+                                matrectransAdapter.remove(finalMatrectrans);
                             } else {
                                 Toast.makeText(InvbalancesActivity.this, matrectranses.get(finalI).itemnum +
                                         "提交失败", Toast.LENGTH_SHORT).show();
 
                             }
 //                            if (finalI == matrectranses.size()) {
-                            colseProgressBar();
+
 //                            }
                         }
                     }.execute();
                 }
+                colseProgressBar();
             }
         }
     };

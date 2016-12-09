@@ -10,6 +10,8 @@ import com.instagram.common.json.annotation.JsonType;
 @JsonType
 public class Matrectrans extends Entity {
 
+    @JsonField(fieldName = "Matrectransid")
+    public String Matrectransid;//
     @JsonField(fieldName = "polinenum")
     public String polinenum;//PO行
     @JsonField(fieldName = "itemnum")
@@ -52,6 +54,14 @@ public class Matrectrans extends Entity {
     @JsonField(fieldName = "ponum")
     public String ponum;//单号
 
+
+    public String getMatrectransid() {
+        return Matrectransid;
+    }
+
+    public void setMatrectransid(String matrectransid) {
+        Matrectransid = matrectransid;
+    }
 
     public String getFromlot() {
         return fromlot;

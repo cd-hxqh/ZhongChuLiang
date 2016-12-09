@@ -71,7 +71,10 @@ public final class Invbalances_JsonHelper
         if ("BINNUM".equals(fieldName)) {
             instance.binnum = jp.getValueAsString();
             return true;
-        } else if ("ITEMNUM".equals(fieldName)) {
+        } else if ("INVBALANCESID".equals(fieldName)) {
+            instance.invbalancesid = jp.getValueAsString();
+            return true;
+        }else if ("ITEMNUM".equals(fieldName)) {
             instance.itemnum = jp.getValueAsString();
             return true;
         } else if ("CURBAL".equals(fieldName)) {
@@ -97,7 +100,7 @@ public final class Invbalances_JsonHelper
         } else if ("INVTYPE".equals(fieldName)) {
             instance.invtype = jp.getValueAsString();
             return true;
-        } else if ("unitcost".equals(fieldName)) {
+        } else if ("UNITCOST".equals(fieldName)) {
             instance.unitcost = jp.getValueAsString();
             return true;
         }

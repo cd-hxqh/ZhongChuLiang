@@ -36,6 +36,8 @@
     <string name="have_not_data_txt">暂无相关数据</string>
     <string name="loading_data_fail">加载数据失败...</string>
 
+    <string name="nfc_hint">请将卡放到手机背面的NFC感应区</string>
+
     <!-- 列表 -->
     <string name="item_num_title">编号:</string>
     <string name="item_desc_title">描述:</string>
@@ -90,7 +92,7 @@
     <string name="poline_desc">描述:</string>
     <string name="poline_recorde_num">接收数量:</string>
     <string name="poline_return_num">退货数量:</string>
-    <string name="poline_orderqty">总数量:</string>
+    <string name="poline_orderqty">采购数量:</string>
     <string name="poline_orderunit">单位:</string>
     <string name="poline_storeloc">仓库号:</string>
     <string name="poline_binnum">库位号:</string>
@@ -119,6 +121,7 @@
     <string name="workorder_choose_item">选择预留项目</string>
 
     <!--出库预留项目-->
+    <string name="invreserve_list_title">预留项目列表</string>
     <string name="invreserve_requestnum">请求:</string>
     <string name="invreserve_itemnum">项目:</string>
     <string name="invreserve_location">库房:</string>
@@ -126,6 +129,9 @@
     <string name="invreserve_reservedqty">已预留数量:</string>
     <string name="invreserve_restype">预留类型:</string>
     <string name="invreserve_binnum">货柜:</string>
+    <string name="invreserve_issueto">发放到:</string>
+    <string name="invreserve_usrby">使用人:</string>
+    <string name="invreserve_cardnum">卡号:</string>
 
 
     <!--库存盘点主表-->
@@ -196,6 +202,15 @@
     <string name="matrectrans_actualdate">到货时间:</string>
     <string name="matrectrans_statusdate">入库时间:</string>
 
+    <!--设备-->
+    <string name="asset_title">设备详情</string>
+    <string name="asset_assetnum">设备编号:</string>
+    <string name="asset_description">描述:</string>
+    <string name="asset_n_locaname">位置:</string>
+    <string name="asset_n_modelnum">设备全称:</string>
+    <string name="asset_assettype">类型:</string>
+    <string name="asset_parent">父级:</string>
+    <string name="asset_status">状态:</string>
 
     <!--仓库库位号选择页面-->
     <string name="title_activity_bin">库位号</string>

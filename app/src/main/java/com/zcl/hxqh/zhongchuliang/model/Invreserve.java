@@ -24,6 +24,8 @@ public class Invreserve extends Entity {
     public String reservedqty; //已预留数量
     @JsonField(fieldName = "restype")
     public String restype; //预留类型
+    @JsonField(fieldName = "issueto")
+    public String issueto; //发放到
 
     public boolean ischeck;//是否被选中
 
@@ -81,5 +83,13 @@ public class Invreserve extends Entity {
 
     public void setRestype(String restype) {
         this.restype = restype;
+    }
+
+    public String getIssueto() {
+        return issueto;
+    }
+
+    public void setIssueto(String issueto) {
+        this.issueto = issueto;
     }
 }
