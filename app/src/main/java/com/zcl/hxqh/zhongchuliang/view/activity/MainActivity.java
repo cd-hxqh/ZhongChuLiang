@@ -106,8 +106,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
                 txt_title.setText(R.string.transfer_text);
                 break;
         }
-//        qr_img.setSelected(false);
-//        isMenuSelect = false;
         if (currentTabIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager()
                     .beginTransaction();
@@ -125,14 +123,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener {
         currentTabIndex = index;
     }
 
-//    private OnClickListener qrOnClickListener = new OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            Intent intent = new Intent(MainActivity.this, MipcaActivityCapture.class);
-//            intent.putExtra("mark",100);
-//            startActivityForResult(intent, 0);
-//        }
-//    };
 
     @Override
     protected void onResume() {

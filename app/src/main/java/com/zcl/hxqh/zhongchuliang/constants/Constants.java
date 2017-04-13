@@ -11,7 +11,6 @@ public class Constants {
     /**
      * 基础接口*
      */
-
     /**
      * 默认 外网*
      */
@@ -19,7 +18,7 @@ public class Constants {
     /**
      * 内网*
      */
-    public static final String HTTPZHENGSHI_API_IP = "http://10.19.3.155";
+    public static final String HTTPZHENGSHI_API_IP = "http://10.1.88.101";
 
     //登陆URL
     public static final String SIGN_IN_URL ="/maximo/mobile/system/login";

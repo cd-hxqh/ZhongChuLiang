@@ -57,7 +57,9 @@ public class InvreserveDetailActivity extends BaseActivity {
     private Button input;//提交
 
 
-    /**使用人**/
+    /**
+     * 使用人
+     **/
     private String enterby;
 
 
@@ -113,6 +115,7 @@ public class InvreserveDetailActivity extends BaseActivity {
         reservedqty.setText(invreserve.reservedqty);
         restype.setText(invreserve.restype);
         issueto.setText(invreserve.issueto);
+        usrby.setText(invreserve.enterby);
 
         cardnum.setOnClickListener(cardnumOnClickListener);
 
@@ -187,10 +190,7 @@ public class InvreserveDetailActivity extends BaseActivity {
         } else if (issueto == null || issueto.getText().toString().equals("")) {
             MessageUtils.showMiddleToast(InvreserveDetailActivity.this, "请填写发放到");
             return false;
-        }
-
-
-        else {
+        } else {
             return true;
         }
     }
@@ -215,7 +215,7 @@ public class InvreserveDetailActivity extends BaseActivity {
                         Toast.makeText(InvreserveDetailActivity.this, "未查询到此人", Toast.LENGTH_SHORT).show();
                     } else if (items.size() == 1) {
                         usrby.setText(items.get(0).displayname);
-                        enterby=items.get(0).personid;
+                        enterby = items.get(0).personid;
                     } else {
                         Toast.makeText(InvreserveDetailActivity.this, "查询错误", Toast.LENGTH_SHORT).show();
                     }

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.zcl.hxqh.zhongchuliang.AppManager;
 import com.zcl.hxqh.zhongchuliang.BaseApplication;
 
+import butterknife.ButterKnife;
+
 
 public class BaseActivity extends Activity {
     private ProgressDialog mProgressDialog;
@@ -18,6 +20,7 @@ public class BaseActivity extends Activity {
         //添加Activity到堆栈
         AppManager.getAppManager().addActivity(this);
         baseApplication = (BaseApplication) getApplication();
+
     }
 
 
@@ -26,6 +29,7 @@ public class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        ButterKnife.unbind(this);
         //结束Activity&从堆栈中移除
         AppManager.getAppManager().finishActivity(this);
     }

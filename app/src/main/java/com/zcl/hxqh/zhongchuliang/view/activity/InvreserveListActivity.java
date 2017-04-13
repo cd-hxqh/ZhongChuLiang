@@ -34,7 +34,6 @@ import java.util.ArrayList;
  * 出库预留项目列表页面
  */
 public class InvreserveListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
-    private static final String TAG = "InvreserveListActivity";
 
     private TextView titleTextView; // 标题
 
@@ -155,7 +154,6 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
         ImManager.getDataPagingInfo(this, ImManager.serInvreserveUrl(wonum, "", page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
-//                Log.i(TAG, "data=" + results);
             }
 
             @Override
@@ -167,13 +165,6 @@ public class InvreserveListActivity extends BaseActivity implements SwipeRefresh
                         notLinearLayout.setVisibility(View.VISIBLE);
                     } else {
                         invreserveAdapter.adddate(items);
-//                        if (page == 1) {
-//                            poAdapter = new PoAdapter(getActivity());
-//                            mRecyclerView.setAdapter(poAdapter);
-//                        }
-//                        if (page == totalPages) {
-//                            poAdapter.adddate(items);
-//                        }
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

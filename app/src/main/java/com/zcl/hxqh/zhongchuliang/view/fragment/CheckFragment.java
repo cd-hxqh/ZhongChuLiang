@@ -4,14 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.zcl.hxqh.zhongchuliang.R;
-import com.zcl.hxqh.zhongchuliang.adapter.InvAdapter;
 import com.zcl.hxqh.zhongchuliang.adapter.N_InvverAdapter;
 import com.zcl.hxqh.zhongchuliang.api.HttpRequestHandler;
 import com.zcl.hxqh.zhongchuliang.api.ImManager;
@@ -23,31 +21,33 @@ import com.zcl.hxqh.zhongchuliang.view.widght.SwipeRefreshLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 库存盘点
  */
-public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
+public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener {
     private static final String TAG = "CheckFragment";
     private static final int RESULT_ADD_TOPIC = 100;
-    /**
-     * RecyclerView*
-     */
+
+    @Bind(R.id.list_topics)
     RecyclerView mRecyclerView;
 
     RecyclerView.LayoutManager mLayoutManager;
 
+    @Bind(R.id.swipe_container)
     SwipeRefreshLayout mSwipeLayout;
 
     private int page = 1;
 
-    /**
-     * 暂无数据*
-     */
-    LinearLayout notLinearLayout;
+
+    @Bind(R.id.have_not_data_id)
+    LinearLayout notLinearLayout; //暂无数据
 
     N_InvverAdapter invverAdapter;
 
-    private static final  int mark = 0;
+    private static final int mark = 0;
 
 
     @Override
@@ -60,6 +60,7 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container,
                 false);
+        ButterKnife.bind(this, view);//绑定framgent
 
         findByIdView(view);
 
@@ -71,10 +72,9 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
      * 初始化界面组件*
      */
     private void findByIdView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.list_topics);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        invverAdapter = new N_InvverAdapter(getActivity(),mark);
+        invverAdapter = new N_InvverAdapter(getActivity(), mark);
         mRecyclerView.setAdapter(invverAdapter);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_container);
         mSwipeLayout.setColor(R.color.holo_blue_bright,
@@ -86,7 +86,6 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setOnLoadListener(this);
 
-        notLinearLayout = (LinearLayout) view.findViewById(R.id.have_not_data_id);
     }
 
     @Override
@@ -98,7 +97,6 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
     }
 
 
-
     /**
      * 获取库存项目信息*
      */
@@ -107,7 +105,6 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
         ImManager.getDataPagingInfo(getActivity(), ImManager.sercN_InvverUrl("", page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
-                Log.i(TAG, "data=" + results);
             }
 
             @Override
@@ -121,7 +118,7 @@ public class CheckFragment extends Fragment implements SwipeRefreshLayout.OnRefr
                         notLinearLayout.setVisibility(View.VISIBLE);
                     } else {
                         if (page == 1) {
-                            invverAdapter = new N_InvverAdapter(getActivity(),mark);
+                            invverAdapter = new N_InvverAdapter(getActivity(), mark);
                             mRecyclerView.setAdapter(invverAdapter);
                         }
                         if (totalPages == page) {

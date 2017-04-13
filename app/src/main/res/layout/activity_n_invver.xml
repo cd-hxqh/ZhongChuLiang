@@ -22,7 +22,6 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
             android:padding="@dimen/dimen_10">
 
@@ -306,40 +305,12 @@
                     android:background="@drawable/down" />
             </RelativeLayout>
 
-            <!--<LinearLayout-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginTop="30dp"-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:orientation="horizontal">-->
+            <com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView
+                android:id="@+id/listview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-                <!--<Button-->
-                    <!--android:id="@+id/po_recorde_text"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/dimen_40dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@drawable/btn_enable_green"-->
-                    <!--android:text="@string/po_recorde_text"-->
-                    <!--android:textColor="@color/white" />-->
-
-                <!--<Button-->
-                    <!--android:id="@+id/po_return_text"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="@dimen/dimen_40dp"-->
-                    <!--android:layout_marginLeft="10dp"-->
-                    <!--android:layout_weight="1"-->
-                    <!--android:background="@drawable/btn_enable_green"-->
-                    <!--android:text="@string/po_return_text"-->
-                    <!--android:textColor="@color/white" />-->
-
-
-            <!--</LinearLayout>-->
-        <com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView
-            android:id="@+id/listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        </com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView>
+            </com.zcl.hxqh.zhongchuliang.view.widght.ListViewForScrollView>
         </LinearLayout>
 
     </ScrollView>

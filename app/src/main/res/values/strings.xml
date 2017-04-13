@@ -79,6 +79,7 @@
     <string name="have_not_data">暂无数据</string>
 
     <string name="material_receiving">物料接收</string>
+    <string name="n_invverline_text">库存盘点行</string>
     <string name="input_all">全部提交</string>
     <string name="confirm_text">确认</string>
 
@@ -153,7 +154,7 @@
     <string name="n_invverline_lotnum">批次:</string>
     <string name="n_invverline_physcnt">实际库存:</string>
     <string name="n_invverline_itemin19">规格型号:</string>
-    <string name="n_invverline_avblbalance">可用量:</string>
+    <string name="n_invverline_avblbalance">当前余量:</string>
 
 
     <!--库存余量详情-->

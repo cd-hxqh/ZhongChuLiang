@@ -26,10 +26,10 @@ public class Invreserve extends Entity {
     public String restype; //预留类型
     @JsonField(fieldName = "issueto")
     public String issueto; //发放到
-    @JsonField(fieldName = "issueto")
-    public String n_cardnum; //发放到
-    @JsonField(fieldName = "issueto")
-    public String enterby; //发放到
+    @JsonField(fieldName = "n_cardnum")
+    public String n_cardnum; //卡号
+    @JsonField(fieldName = "enterby")
+    public String enterby; //使用人
 
     public boolean ischeck;//是否被选中
 

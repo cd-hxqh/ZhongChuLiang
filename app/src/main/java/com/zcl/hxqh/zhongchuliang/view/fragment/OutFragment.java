@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,27 +21,28 @@ import com.zcl.hxqh.zhongchuliang.view.widght.SwipeRefreshLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * 出库管理
  */
 public class OutFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, SwipeRefreshLayout.OnLoadListener{
     private static final String TAG = "OutFragment";
     private static final int RESULT_ADD_TOPIC = 100;
-    /**
-     * RecyclerView*
-     */
-    RecyclerView mRecyclerView;
+
+    @Bind(R.id.list_topics)
+    RecyclerView mRecyclerView; //RecyclerView
 
     RecyclerView.LayoutManager mLayoutManager;
 
+    @Bind(R.id.swipe_container)
     SwipeRefreshLayout mSwipeLayout;
 
     private int page = 1;
 
-    /**
-     * 暂无数据*
-     */
-    LinearLayout notLinearLayout;
+    @Bind(R.id.have_not_data_id)
+    LinearLayout notLinearLayout; //暂无数据
 
     WorkOrderAdapter workOrderAdapter;
 
@@ -58,7 +58,7 @@ public class OutFragment extends Fragment implements SwipeRefreshLayout.OnRefres
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_item, container,
                 false);
-
+        ButterKnife.bind(this,view);//绑定framgent
         findByIdView(view);
 
 
@@ -69,7 +69,6 @@ public class OutFragment extends Fragment implements SwipeRefreshLayout.OnRefres
      * 初始化界面组件*
      */
     private void findByIdView(View view) {
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.list_topics);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         workOrderAdapter = new WorkOrderAdapter(getActivity());
@@ -84,7 +83,6 @@ public class OutFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setOnLoadListener(this);
 
-        notLinearLayout = (LinearLayout) view.findViewById(R.id.have_not_data_id);
     }
 
     @Override
@@ -105,7 +103,6 @@ public class OutFragment extends Fragment implements SwipeRefreshLayout.OnRefres
         ImManager.getDataPagingInfo(getActivity(), ImManager.serWorkorderUrl(search,page, 20), new HttpRequestHandler<Results>() {
             @Override
             public void onSuccess(Results results) {
-                Log.i(TAG, "data=" + results);
             }
 
             @Override

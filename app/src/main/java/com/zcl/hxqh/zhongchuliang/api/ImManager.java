@@ -28,9 +28,9 @@ public class ImManager {
      **/
     public static String serWorkorderUrl(String search, int curpage, int showcount) {
         if (search.equals("")) {
-            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','condition':{'STATUS':'=已核准'}}";
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WONUM DESC','condition':{'STATUS':'=已核准'}}";
         } else {
-            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','sinorsearch':{'WONUM':'" + search + "','DESCRIPTION':'" + search + "'},'condition':{'STATUS':'=已核准'}}";
+            return "{'appid':'" + Constants.WORKORDER_APPID + "','objectname':'" + Constants.WORKORDER_NAME + "','curpage':" + curpage + ",'showcount':" + showcount + ",'option':'read','orderby':'WONUM DESC','sinorsearch':{'WONUM':'" + search + "','DESCRIPTION':'" + search + "'},'condition':{'STATUS':'=已核准'}}";
         }
 
     }
